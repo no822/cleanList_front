@@ -29,6 +29,8 @@ const Index = () => {
     const [isPre, setIsPre] = useState<boolean>(true);
 
     const currentIndex = useRef(0);
+    const answeredMainQuestion = mainQuestions.filter(q => q.answer !== undefined).length;
+
 
     const isEndPreQuestion = () => {
         const [areaQuestion, difficultyQuestion] = preQuestions;
@@ -76,14 +78,15 @@ const Index = () => {
 
     useEffect(() => {
         if (!isPre) {
-            setProgressTxt(`${mainQuestions.length}개의 질문이 남았습니다.`);
+            const remainQuestions = mainQuestions.length - answeredMainQuestion;
+            setProgressTxt(remainQuestions === 0 ? '설문완료!' : `${remainQuestions}개의 질문이 남았습니다.`);
             setCurrentQuestion(mainQuestions[currentIndex.current]);
         }
     }, [mainQuestions, preQuestions]);
 
 
     const recordAnswer = (answer: string | boolean) => {
-        const question = {...preQuestions[currentIndex.current]};
+        const question = (isPre) ? {...preQuestions[currentIndex.current]} : {...mainQuestions[currentIndex.current]};
         question.answer = answer;
         nextQuestion(question);
     };
@@ -95,14 +98,18 @@ const Index = () => {
         if (isQuestion) {
             newQuestions[currentIndex.current] = question;
             currentIndex.current += 1;
-            setPrequestions(newQuestions);
+            (isPre) ? setPrequestions(newQuestions) : setMainQuestions(newQuestions);
         }
     };
 
 
     return (
         <Layout>
-            <progress className="px-5 progress absolute progress-primary w-4/5 w-full translate-x-1/2 right-1/2" value={0} max={mainQuestions.length}></progress>
+            <progress
+                className='px-5 progress absolute progress-primary w-4/5 w-full translate-x-1/2 right-1/2 transition-transform'
+                value={answeredMainQuestion}
+                max={mainQuestions.length}
+            ></progress>
             <p className='absolute w-60 translate-x-1/2 right-1/2 top-11 text-center'>{progressTxt}</p>
             <div className='h-full w-full flex justify-center items-center'>
                 {isYesOrNo(currentQuestion) &&
