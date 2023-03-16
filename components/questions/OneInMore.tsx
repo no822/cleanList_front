@@ -12,13 +12,13 @@ const OneInMore = ({...props}: propsType) => {
 
     )
     return (
-        <Card className=''>
+        <Card className='h-4/5 relative top-5'>
             <h2 className='leading-7 text-lg font-bold break-keep text-center'>{props.text}</h2>
             <div className={`
-                mt-5
-                h-80 overflow-y-scroll 
+                h-4/5 mt-5 
+                overflow-y-scroll overflow-x-hidden
                 grid grid-cols-2 
-                place-content-start gap-4`}
+                place-content-start gap-3`}
             >
                 {props.options.map((text, i) =>
                     <Button

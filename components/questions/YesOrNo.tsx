@@ -7,7 +7,7 @@ const YesOrNo = ({...props}: yesOrNo) => {
     //
     console.log(props)
     return (
-        <Card className='h-3/4'>
+        <Card className='h-3/4 relative top-5'>
             <h2 className='leading-7 text-lg font-bold break-keep text-center'>{props.text}</h2>
             <div className="card-body items-center text-center h-full flex justify-center p-0">
                 <div className="card-actions flex">
