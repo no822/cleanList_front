@@ -3,9 +3,16 @@ import { yesOrNo } from "../../data/types/questions";
 import Card from "../ui/Card";
 import Button from '../ui/Button';
 
-const YesOrNo = ({...props}: yesOrNo) => {
-    //
-    console.log(props)
+type propsType = yesOrNo & {
+   answerQuestion: (value: boolean) => void;
+}
+
+const YesOrNoQuestion = ({...props}: propsType) => {
+
+    const btnClickHandler = (value: boolean) => {
+        props.answerQuestion(value);
+    }
+
     return (
         <Card className='h-3/4 relative top-5'>
             <h2 className='leading-7 text-lg font-bold break-keep text-center'>{props.text}</h2>
@@ -13,10 +20,10 @@ const YesOrNo = ({...props}: yesOrNo) => {
                 <div className="card-actions flex">
                     <Button
                         className='btn-lg h-32 w-28 max-w-xs'
-                        clickHandler={() => console.log('yes')}>👌네</Button>
+                        clickHandler={() => btnClickHandler(true)}>👌네</Button>
                     <Button
                         className='btn-lg h-32 w-28 max-w-xs px-0'
-                        clickHandler={() => console.log('no')}>👋아니요</Button>
+                        clickHandler={() => btnClickHandler(false)}>👋아니요</Button>
                 </div>
             </div>
 
@@ -24,4 +31,4 @@ const YesOrNo = ({...props}: yesOrNo) => {
     );
 };
 
-export default YesOrNo;
+export default YesOrNoQuestion;

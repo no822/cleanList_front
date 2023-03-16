@@ -1,7 +1,7 @@
-import React, {ReactNode} from 'react';
+import React, {MouseEventHandler, ReactNode} from 'react';
 
 type propType = {
-    clickHandler: () => void,
+    clickHandler: MouseEventHandler<HTMLButtonElement>;
     className?: string,
     children: ReactNode
 };
@@ -9,7 +9,7 @@ type propType = {
 const Button = ({clickHandler, className, children}: propType) => {
     const buttonText = children || 'button';
     return (
-        <button onClick={clickHandler} className={`btn ${className}`}>{buttonText}</button>
+        <button onClick={clickHandler} className={`btn break-keep ${className}`}>{buttonText}</button>
     );
 };
 

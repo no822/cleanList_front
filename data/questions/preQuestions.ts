@@ -9,19 +9,23 @@
 
 import {oneInMore} from "../types/questions";
 
-export const preQuestions: Array<oneInMore> = [
+const preQuestionsData: Array<oneInMore> = [
     {
         target: 'area',
         text: '청소할 구역이 어디인가요?',
-        options: ['침실', '주방', '욕실', '베란다'],
+        options: ['침실', '욕실', '주방', '베란다'],
         values: ['bedroom', 'bathroom', 'kitchen', 'veranda'],
-        difficulty: 'easy'
+        difficulty: 'easy',
+        area: 'pre'
     },
     {
         target: 'difficulty',
         text: '얼마나 귀찮으세요?',
-        options: ['열심히 청소좀 해볼까!', '조금 귀찮은데요?','엄청 귀찮아요..'],
+        options: ['열심히 청소좀 해볼까!', '조금 귀찮은데요?', '엄청 귀찮아요..'],
         values: ['very hard', 'hard', 'easy'],
-        difficulty: 'easy'
-    }
+        difficulty: 'easy',
+        area: 'pre'
+    },
 ];
+
+export default preQuestionsData;
