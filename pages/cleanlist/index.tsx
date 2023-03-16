@@ -12,7 +12,7 @@ const index = () => {
                     청소시작 버튼을 눌러서 몇가지 질문에 대답하여 청소 투두리스트를 생성해보세요.`}
                 </Card>
                 <Button
-                    className='btn-lg'
+                    className='btn-lg btn-wide'
                     clickHandler={() => console.log('click button')}>청소 시작!</Button>
             </div>
         </Layout>
