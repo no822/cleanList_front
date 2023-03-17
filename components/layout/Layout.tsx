@@ -1,6 +1,7 @@
 import React, {ReactNode} from 'react';
 import Header from "./Header";
 import BottomNavigation from "./BottomNavigation";
+import InformModal from "../ui/InformModal";
 
 type props = {
     children: ReactNode

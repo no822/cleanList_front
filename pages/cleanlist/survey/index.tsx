@@ -11,8 +11,7 @@ import Layout from "../../../components/layout/Layout";
 import YesOrNoQuestion from "../../../components/questions/YesOrNoQuestion";
 import OneInMoreQuestion, {targetType} from "../../../components/questions/OneInMoreQuestion";
 import {isYesOrNo, isOneInMore, questionTypes, basicQuestion} from "../../../data/types/questions";
-import {oneInMore} from '../../../data/types/questions';
-import veranda from "../../../data/questions/veranda";
+import InformModal from "../../../components/ui/InformModal";
 
 
 const Index = () => {
@@ -30,25 +29,14 @@ const Index = () => {
 
     const currentIndex = useRef(0);
     const answeredMainQuestion = mainQuestions.filter(q => q.answer !== undefined).length;
+    const remainMainQuestion = mainQuestions.length - answeredMainQuestion;
+    const isCompleteSurvey = remainMainQuestion === 0;
 
-
-    const isEndPreQuestion = () => {
-        const [areaQuestion, difficultyQuestion] = preQuestions;
-        const area = areaQuestion.answer;
-        const difficulty = difficultyQuestion.answer;
-        return area && difficulty;
-    }
-
+    let isModalOpen = false;
 
     useEffect(() => {
        const question = preQuestions[currentIndex.current];
-
-       if (isYesOrNo(question)) {
-           setCurrentQuestion(question);
-
-       }else if (isOneInMore(question)) {
-           setCurrentQuestion(question);
-       }
+       setCurrentQuestion(question);
     }, [preQuestions]);
 
 
@@ -56,8 +44,9 @@ const Index = () => {
         const [areaQuestion, difficultyQuestion] = preQuestions;
         const area = areaQuestion.answer;
         const difficulty = difficultyQuestion.answer;
+        const isEndPreQuestion = area && difficulty;
 
-        if (isEndPreQuestion()) {
+        if (isEndPreQuestion) {
             currentIndex.current = 0;
             setIsPre(false);
             const filtered = mainQuestions
@@ -78,8 +67,7 @@ const Index = () => {
 
     useEffect(() => {
         if (!isPre) {
-            const remainQuestions = mainQuestions.length - answeredMainQuestion;
-            setProgressTxt(remainQuestions === 0 ? '설문완료!' : `${remainQuestions}개의 질문이 남았습니다.`);
+            setProgressTxt(isCompleteSurvey ? '설문완료!' : `${remainMainQuestion}개의 질문이 남았습니다.`);
             setCurrentQuestion(mainQuestions[currentIndex.current]);
         }
     }, [mainQuestions, preQuestions]);
@@ -102,13 +90,20 @@ const Index = () => {
         }
     };
 
+    if (isCompleteSurvey) {
+        isModalOpen = true;
+    }
+
+    const generateTodoList = () => {
+       console.log('청소시작!');
+    }
 
     return (
         <Layout>
             <progress
-                className={`px-5 progress absolute progress progress-info w-4/5 w-full
-                 translate-x-1/2 right-1/2 
-                 transition-[width] `}
+                className={`progress absolute 
+                    px-5 w-4/5 w-full progress progress-info 
+                    translate-x-1/2 right-1/2 `}
                 value={answeredMainQuestion}
                 max={mainQuestions.length}
             ></progress>
@@ -134,6 +129,14 @@ const Index = () => {
                         area={currentQuestion.area}
                     />}
             </div>
+
+            <InformModal
+                isShow={isModalOpen}
+                title='설문이 완료되었습니다.'
+                informTxt='청소시작 버튼을 눌러서 투두리스트를 완성하세요!'
+                btnTxt='청소 시작!'
+                modalBtnClickHandler={generateTodoList}
+            />
         </Layout>
     );
 };
