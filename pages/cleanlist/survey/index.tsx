@@ -33,14 +33,15 @@ const Index = () => {
     ]);
     const [progressTxt, setProgressTxt] = useState<string>('사전질문 중입니다..');
     const [currentQuestion, setCurrentQuestion] = useState<questionTypes>();
-    const [isPre, setIsPre] = useState<boolean>(true);
+    const [isPrequestionProccess, setIsPrequestionProcess] = useState<boolean>(true);
+    const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
     const currentIndex = useRef(0);
     const answeredMainQuestion = mainQuestions.filter(q => q.answer !== undefined).length;
     const remainMainQuestion = mainQuestions.length - answeredMainQuestion;
     const isCompleteSurvey = remainMainQuestion === 0;
 
-    let isModalOpen = false;
+    // let isModalOpen = false;
 
     useEffect(() => {
        const question = preQuestions[currentIndex.current];
@@ -56,7 +57,7 @@ const Index = () => {
 
         if (isEndPreQuestion) {
             currentIndex.current = 0;
-            setIsPre(false);
+            setIsPrequestionProcess(false);
             const filtered = mainQuestions
                 .filter(q => q.area === area || q.area === 'common')
                 .filter(q => {
@@ -74,7 +75,7 @@ const Index = () => {
 
 
     useEffect(() => {
-        if (!isPre) {
+        if (!isPrequestionProccess) {
             setProgressTxt(isCompleteSurvey ? '설문완료!' : `${remainMainQuestion}개의 질문이 남았습니다.`);
             setCurrentQuestion(mainQuestions[currentIndex.current]);
         }
@@ -82,29 +83,38 @@ const Index = () => {
 
 
     const recordAnswer = (answer: string | boolean) => {
-        const question = (isPre) ? {...preQuestions[currentIndex.current]} : {...mainQuestions[currentIndex.current]};
+        const question = (isPrequestionProccess) ? {...preQuestions[currentIndex.current]} : {...mainQuestions[currentIndex.current]};
         question.answer = answer;
         nextQuestion(question);
     };
 
 
     const nextQuestion = (question: questionTypes) => {
-        const newQuestions = (isPre) ? [...preQuestions] : [...mainQuestions];
+        const newQuestions = (isPrequestionProccess) ? [...preQuestions] : [...mainQuestions];
         const isQuestion = newQuestions[currentIndex.current];
         if (isQuestion) {
             newQuestions[currentIndex.current] = question;
             currentIndex.current += 1;
-            (isPre) ? setPrequestions(newQuestions) : setMainQuestions(newQuestions);
+            (isPrequestionProccess) ? setPrequestions(newQuestions) : setMainQuestions(newQuestions);
         }
     };
 
-    if (isCompleteSurvey) {
-        isModalOpen = true;
-    }
+    useEffect(() => {
+        if (isCompleteSurvey) {
+            setIsModalOpen(true);
+        }
+    }, [isCompleteSurvey]);
+
 
     const generateTodoList = () => {
         console.log('청소시작!');
         // objective: 청소 투두리스트 생성하고 화면에 보여주기
+        // mainQuestions -> Array<cleaning>
+        // 생성한 Array<cleaning>를 리덕스에 넣는다
+        // /cleanlist/todo로 라우팅
+
+        // /cleanlist/todo의 useEffect에서 리덕스에서 값을 받아와서 활용
+        setIsModalOpen(false);
     }
 
     return (
