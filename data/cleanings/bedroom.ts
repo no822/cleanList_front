@@ -49,7 +49,7 @@ export const bedroomQuestions: Array<cleaning> = [
     {
         id: 'bed6',
         desc: '청소기 또는 바닥쓸기',
-        difficulty: 'hard',
+        difficulty: 'easy',
         priority: 50,
         isDefault: false,
         cleaningTools: ['청소기 또는 빗자루'],

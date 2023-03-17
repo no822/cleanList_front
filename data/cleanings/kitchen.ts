@@ -31,7 +31,7 @@ export const kitchenCleanings: Array<cleaning> = [
     {
         id: 'kitchen4',
         desc: '바닥쓸기',
-        difficulty: 'hard',
+        difficulty: 'easy',
         priority: 50,
         isDefault: false,
         cleaningTools: ['빗자루 또는 청소기'],
