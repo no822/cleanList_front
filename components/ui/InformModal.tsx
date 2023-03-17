@@ -21,7 +21,7 @@ const InformModal = ({modalBtnClickHandler, isShow, title, informTxt, btnTxt}: p
                 <div className="modal-box">
                     <h3 className="font-bold text-lg">{title}</h3>
                     <p className="py-4 break-keep">{informTxt}</p>
-                    <div className="modal-action">
+                    <div className="modal-action flex justify-center">
                         <label
                             onClick={btnClickHandler}
                             htmlFor="my-modal"
