@@ -61,7 +61,7 @@ const Index = () => {
             currentIndex.current = 0;
             setIsPre(false);
             const filtered = mainQuestions
-                .filter(q => q.area === area)
+                .filter(q => q.area === area || q.area === 'common')
                 .filter(q => {
                     if (difficulty === 'easy') {
                         return q.difficulty === 'easy';
@@ -106,7 +106,9 @@ const Index = () => {
     return (
         <Layout>
             <progress
-                className='px-5 progress absolute progress-primary w-4/5 w-full translate-x-1/2 right-1/2 transition-transform'
+                className={`px-5 progress absolute progress progress-info w-4/5 w-full
+                 translate-x-1/2 right-1/2 
+                 transition-[width] `}
                 value={answeredMainQuestion}
                 max={mainQuestions.length}
             ></progress>

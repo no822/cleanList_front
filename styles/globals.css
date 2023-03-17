@@ -34,3 +34,10 @@ a {
   }
 }
 
+progress::-webkit-progress-value {
+  transition: 0.5s width;
+}
+
+.btm-nav>*:where(.active) {
+  transition: 0.5s border-top-width;
+}
