@@ -1,7 +1,11 @@
 export type difficulty = 'very hard' | 'hard' | 'easy';
 export type areaType = 'common' | 'bedroom' | 'bathroom' | 'kitchen' | 'veranda';
 
-export type cleaning = {
+type checked = {
+    isChecked?: boolean;
+};
+
+export type cleaning = checked & {
     id: string;
     difficulty: difficulty;
     priority: number;

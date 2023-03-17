@@ -9,16 +9,21 @@ export type basicQuestion = {
 
 export type questionTypes = yesOrNo | oneInMore;
 
-// 특정 청소를 추가하는 질문
-// if (answer) 일때 cleaningId인 청소를 추가
+/**
+ * type1: 양자택일 질문, 특정 청소를 추가할지 여부를 묻는다.
+ * if (answer) 일때 cleaningId인 청소를 추가
+ */
 export type yesOrNo = basicQuestion & {
     cleaningId: string;
     answer?: boolean; // 해당 청소를 추가할 것인지 여부
     additionalCleaning?: Array<string>;
 };
 
-// 청소 영역을 선택(= 청소영역을 기준으로 필터링), 난이도 설정(=난이도를 기준으로 필터링)
-// target 필드의 값이 answer 이 같은 청소를 추가
+/**
+ * type2: 다중일택 질문, 다른 질문들을 필터링하는 기준을 묻는다.
+ * 청소 영역을 선택(= 청소영역을 기준으로 필터링), 난이도 설정(=난이도를 기준으로 필터링)
+ * target 필드의 값이 answer 이 같은 청소를 추가한다
+ */
 export type oneInMore = basicQuestion & {
     target: targetType;
     answer?: string; // 청소영역이나 난이도
@@ -26,13 +31,16 @@ export type oneInMore = basicQuestion & {
     values: Array<string>;
 };
 
-// 청소도구 선택(= 해당 청소도구와 연관된 청소들만 필터링)
-// cleaningTools에 answer에 있는 값들이 있는 청소들을 추가
+/**
+ * type3: 다지선다 질문, 청소도구 선택(= 해당 청소도구와 연관된 청소들만 필터링)
+ * cleaningTools에 answer에 있는 값들이 있는 청소들을 추가
+ */
 export type moreInMore = basicQuestion & {
     answer?: Array<string>; // 청소도구들
 };
 
 
+/** type guard **/
 export function isYesOrNo(question?: questionTypes): question is yesOrNo {
     if (question == null) return false;
     return (<yesOrNo>question).cleaningId !== undefined;

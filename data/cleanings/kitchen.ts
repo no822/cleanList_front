@@ -1,6 +1,6 @@
 import {cleaning} from "../types/cleanings";
 
-export const kitchenCleanings: Array<cleaning> = [
+const kitchenCleanings: Array<cleaning> = [
     {
         id: 'kitchen1',
         desc: '설거지',
@@ -110,3 +110,5 @@ export const kitchenCleanings: Array<cleaning> = [
         area: 'bathroom'
     },
 ];
+
+export default kitchenCleanings;

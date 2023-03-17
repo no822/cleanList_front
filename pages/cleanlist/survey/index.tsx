@@ -1,4 +1,7 @@
+import {useRouter} from "next/router";
 import React, {useEffect, useState, useRef} from 'react';
+import {useAppDispatch} from "../../../store/hooks";
+import {cleaningAction} from "../../../store/cleaningSlice";
 
 import preQuestionsData from "../../../data/questions/preQuestions";
 import commonQuestionsData from "../../../data/questions/common";
@@ -7,11 +10,24 @@ import bathroomquestionsData from "../../../data/questions/bathroom";
 import kitchenquestionsData from "../../../data/questions/kitchen";
 import verandaQuestionsData from "../../../data/questions/veranda";
 
+import commonCleanings from "../../../data/cleanings/common";
+import bedroomCleanings from "../../../data/cleanings/bedroom";
+import bathroomCleanings from "../../../data/cleanings/bathroom";
+import kitchenCleanings from "../../../data/cleanings/kitchen";
+import verandaCleanings from "../../../data/cleanings/veranda";
+
 import Layout from "../../../components/layout/Layout";
-import YesOrNoQuestion from "../../../components/questions/YesOrNoQuestion";
-import OneInMoreQuestion, {targetType} from "../../../components/questions/OneInMoreQuestion";
-import {isYesOrNo, isOneInMore, questionTypes, basicQuestion} from "../../../data/types/questions";
 import InformModal from "../../../components/ui/InformModal";
+import YesOrNoQuestion from "../../../components/questions/YesOrNoQuestion";
+import OneInMoreQuestion from "../../../components/questions/OneInMoreQuestion";
+
+import {cleaning} from "../../../data/types/cleanings";
+import {
+    isYesOrNo,
+    isOneInMore,
+    questionTypes,
+    yesOrNo
+} from "../../../data/types/questions";
 
 
 /**
@@ -23,6 +39,9 @@ import InformModal from "../../../components/ui/InformModal";
  */
 
 const Index = () => {
+    const dispatch = useAppDispatch();
+    const router = useRouter();
+
     const [preQuestions, setPrequestions] = useState<Array<questionTypes>>(preQuestionsData);
     const [mainQuestions, setMainQuestions] = useState<Array<questionTypes>>([
         ...commonQuestionsData,
@@ -33,7 +52,7 @@ const Index = () => {
     ]);
     const [progressTxt, setProgressTxt] = useState<string>('사전질문 중입니다..');
     const [currentQuestion, setCurrentQuestion] = useState<questionTypes>();
-    const [isPrequestionProccess, setIsPrequestionProcess] = useState<boolean>(true);
+    const [isPrequestionProcedure, setIsPrequestionProcedure] = useState<boolean>(true);
     const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
     const currentIndex = useRef(0);
@@ -41,7 +60,6 @@ const Index = () => {
     const remainMainQuestion = mainQuestions.length - answeredMainQuestion;
     const isCompleteSurvey = remainMainQuestion === 0;
 
-    // let isModalOpen = false;
 
     useEffect(() => {
        const question = preQuestions[currentIndex.current];
@@ -53,11 +71,9 @@ const Index = () => {
         const [areaQuestion, difficultyQuestion] = preQuestions;
         const area = areaQuestion.answer;
         const difficulty = difficultyQuestion.answer;
-        const isEndPreQuestion = area && difficulty;
+        const isEndPreQuestion = area && difficulty; // 사전질문 2개 모두 답변한 경우
 
         if (isEndPreQuestion) {
-            currentIndex.current = 0;
-            setIsPrequestionProcess(false);
             const filtered = mainQuestions
                 .filter(q => q.area === area || q.area === 'common')
                 .filter(q => {
@@ -69,33 +85,39 @@ const Index = () => {
                         return true;
                     }
                 });
+
+            currentIndex.current = 0;
+            setIsPrequestionProcedure(false);
             setMainQuestions(filtered);
         }
     }, [preQuestions]);
 
 
     useEffect(() => {
-        if (!isPrequestionProccess) {
-            setProgressTxt(isCompleteSurvey ? '설문완료!' : `${remainMainQuestion}개의 질문이 남았습니다.`);
+        if (!isPrequestionProcedure) {
+            setProgressTxt(
+                isCompleteSurvey ? '설문완료!' : `${remainMainQuestion}개의 질문이 남았습니다.`);
             setCurrentQuestion(mainQuestions[currentIndex.current]);
         }
-    }, [mainQuestions, preQuestions]);
+    }, [mainQuestions]);
 
 
     const recordAnswer = (answer: string | boolean) => {
-        const question = (isPrequestionProccess) ? {...preQuestions[currentIndex.current]} : {...mainQuestions[currentIndex.current]};
+        const question = (isPrequestionProcedure)
+            ? {...preQuestions[currentIndex.current]}
+            : {...mainQuestions[currentIndex.current]};
         question.answer = answer;
         nextQuestion(question);
     };
 
 
     const nextQuestion = (question: questionTypes) => {
-        const newQuestions = (isPrequestionProccess) ? [...preQuestions] : [...mainQuestions];
-        const isQuestion = newQuestions[currentIndex.current];
+        const newQuestions = (isPrequestionProcedure) ? [...preQuestions] : [...mainQuestions];
+        const isQuestion = newQuestions[currentIndex.current] != null;
         if (isQuestion) {
             newQuestions[currentIndex.current] = question;
             currentIndex.current += 1;
-            (isPrequestionProccess) ? setPrequestions(newQuestions) : setMainQuestions(newQuestions);
+            (isPrequestionProcedure) ? setPrequestions(newQuestions) : setMainQuestions(newQuestions);
         }
     };
 
@@ -107,13 +129,33 @@ const Index = () => {
 
 
     const generateTodoList = () => {
-        console.log('청소시작!');
-        // objective: 청소 투두리스트 생성하고 화면에 보여주기
-        // mainQuestions -> Array<cleaning>
-        // 생성한 Array<cleaning>를 리덕스에 넣는다
-        // /cleanlist/todo로 라우팅
+        const cleaningsData = [
+            ...commonCleanings,
+            ...bedroomCleanings,
+            ...bathroomCleanings,
+            ...kitchenCleanings,
+            ...verandaCleanings,
+        ];
 
-        // /cleanlist/todo의 useEffect에서 리덕스에서 값을 받아와서 활용
+        const answeredQuestions = (mainQuestions as Array<yesOrNo>)
+            .filter(q => isYesOrNo(q))
+            .filter(q => q.answer);
+
+        const cleaningsIds = answeredQuestions.map(q => q.cleaningId);
+
+        const additionalCleaningIds = answeredQuestions
+            .filter(q => q.additionalCleaning)
+            .filter(q => q.cleaningId);
+
+        const uniqueIds = Array.from(
+            new Set([...cleaningsIds, ...additionalCleaningIds])
+        );
+
+        const cleaningTodoList: Array<cleaning> = cleaningsData
+            .filter(c => uniqueIds.includes(c.id));
+
+        dispatch(cleaningAction.setCleanings(cleaningTodoList));
+        router.push('/cleanlist/todo');
         setIsModalOpen(false);
     }
 

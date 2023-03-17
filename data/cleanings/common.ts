@@ -1,6 +1,6 @@
 import {cleaning} from "../types/cleanings";
 
-export const commonCleanings: Array<cleaning> = [
+const commonCleanings: Array<cleaning> = [
     {
         id: 'c1',
         desc: '환기하기',
@@ -83,3 +83,5 @@ export const commonCleanings: Array<cleaning> = [
         area: 'common'
     },
 ];
+
+export default commonCleanings;
