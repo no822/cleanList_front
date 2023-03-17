@@ -14,6 +14,14 @@ import {isYesOrNo, isOneInMore, questionTypes, basicQuestion} from "../../../dat
 import InformModal from "../../../components/ui/InformModal";
 
 
+/**
+ * preQuestions: 후속 질문들을 결정하는 질문들
+ * ex: 어느 영역(침실, 주방, 욕실 등)에 대한 질문을 할 것인지, 쉬운 난이도의 청소를 추가하는 질문만 할 것인지
+ *
+ * mainQuestions: 특정 청소를 추가시키는 질문들
+ * ex: 욕실 벽면 청소를 하실 건가요? -> yes 선택시 <욕실벽면청소> 추가
+ */
+
 const Index = () => {
     const [preQuestions, setPrequestions] = useState<Array<questionTypes>>(preQuestionsData);
     const [mainQuestions, setMainQuestions] = useState<Array<questionTypes>>([
@@ -95,7 +103,8 @@ const Index = () => {
     }
 
     const generateTodoList = () => {
-       console.log('청소시작!');
+        console.log('청소시작!');
+        // objective: 청소 투두리스트 생성하고 화면에 보여주기
     }
 
     return (

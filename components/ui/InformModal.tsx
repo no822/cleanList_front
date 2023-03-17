@@ -25,7 +25,7 @@ const InformModal = ({modalBtnClickHandler, isShow, title, informTxt, btnTxt}: p
                         <label
                             onClick={btnClickHandler}
                             htmlFor="my-modal"
-                            className="btn btn-wide"
+                            className="btn btn-wide h-16 text-lg"
                         >{btnTxt}</label>
                     </div>
                 </div>
