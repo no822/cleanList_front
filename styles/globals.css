@@ -43,5 +43,5 @@ progress::-webkit-progress-value {
 }
 
 .btm-nav>*:where(.active) {
-  transition: 0.5s border-top-width;
+  transition: 0.2s border-top-width;
 }
