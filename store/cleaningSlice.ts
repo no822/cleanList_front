@@ -1,13 +1,15 @@
 import {createSlice} from "@reduxjs/toolkit";
 import {cleaning} from "../data/types/cleanings";
-import {RootState} from "./index";
+import {RootState} from "./store";
 
 type stateType = {
     todoCleanings: Array<cleaning>;
+    area: 'bedroom' | 'bathroom' | 'kitchen' | 'veranda' | '';
 };
 
 const initialValue: stateType = {
     todoCleanings: [],
+    area: '',
 };
 
 const cleaningSlice = createSlice({
@@ -16,10 +18,19 @@ const cleaningSlice = createSlice({
     reducers: {
         setCleanings(state, action) {
             state.todoCleanings = action.payload;
+        },
+        setArea(state, action) {
+            state.area = action.payload;
+        },
+        checkCleaning(state, action) {
+            const id = action.payload.id;
+            const isChecked = action.payload.isChecked;
+            const targetCleaning = state.todoCleanings.find(cleaning => cleaning.id === id);
+            if (targetCleaning) {
+                targetCleaning.isChecked = isChecked;
+            }
         }
-        // 추가
-        // 제거
-        // 순서변경
+
     }
 });
 
