@@ -11,7 +11,7 @@ const Layout = ({children}: props) => {
     return (
         <div className='max-w-md my-0 mx-auto h-full'>
             <Header />
-            <main className='relative h-full p-6 flex items-stretch bg-slate-100'>{children}</main>
+            <main className='relative p-6 flex items-stretch bg-slate-100 overflow-auto'>{children}</main>
             <BottomNavigation />
         </div>
     );

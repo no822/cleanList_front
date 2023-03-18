@@ -1,33 +1,32 @@
 import {useRouter} from "next/router";
 import React, {useEffect, useState, useRef} from 'react';
-import {useAppDispatch} from "../../../store/hooks";
-import {cleaningAction} from "../../../store/cleaningSlice";
+import {useAppDispatch} from "../../store/hooks";
+import {cleaningAction} from "../../store/cleaningSlice";
 
-import preQuestionsData from "../../../data/questions/preQuestions";
-import commonQuestionsData from "../../../data/questions/common";
-import bedroomQuestionsData from "../../../data/questions/bedroom";
-import bathroomquestionsData from "../../../data/questions/bathroom";
-import kitchenquestionsData from "../../../data/questions/kitchen";
-import verandaQuestionsData from "../../../data/questions/veranda";
+import preQuestionsData from "../../data/questions/preQuestions";
+import commonQuestionsData from "../../data/questions/common";
+import bedroomQuestionsData from "../../data/questions/bedroom";
+import bathroomquestionsData from "../../data/questions/bathroom";
+import kitchenquestionsData from "../../data/questions/kitchen";
+import verandaQuestionsData from "../../data/questions/veranda";
 
-import commonCleanings from "../../../data/cleanings/common";
-import bedroomCleanings from "../../../data/cleanings/bedroom";
-import bathroomCleanings from "../../../data/cleanings/bathroom";
-import kitchenCleanings from "../../../data/cleanings/kitchen";
-import verandaCleanings from "../../../data/cleanings/veranda";
+import commonCleanings from "../../data/cleanings/common";
+import bedroomCleanings from "../../data/cleanings/bedroom";
+import bathroomCleanings from "../../data/cleanings/bathroom";
+import kitchenCleanings from "../../data/cleanings/kitchen";
+import verandaCleanings from "../../data/cleanings/veranda";
 
-import Layout from "../../../components/layout/Layout";
-import InformModal from "../../../components/ui/InformModal";
-import YesOrNoQuestion from "../../../components/questions/YesOrNoQuestion";
-import OneInMoreQuestion from "../../../components/questions/OneInMoreQuestion";
+import InformModal from "../../components/ui/InformModal";
+import YesOrNoQuestion from "../../components/questions/YesOrNoQuestion";
+import OneInMoreQuestion from "../../components/questions/OneInMoreQuestion";
 
-import {cleaning} from "../../../data/types/cleanings";
+import {cleaning} from "../../data/types/cleanings";
 import {
     isYesOrNo,
     isOneInMore,
     questionTypes,
     yesOrNo
-} from "../../../data/types/questions";
+} from "../../data/types/questions";
 
 
 /**
@@ -38,7 +37,7 @@ import {
  * ex: 욕실 벽면 청소를 하실 건가요? -> yes 선택시 <욕실벽면청소> 추가
  */
 
-const Index = () => {
+const Survey = () => {
     const dispatch = useAppDispatch();
     const router = useRouter();
 
@@ -152,7 +151,7 @@ const Index = () => {
         );
 
         const cleaningTodoList: Array<cleaning> = cleaningsData
-            .filter(c => uniqueIds.includes(c.id));
+            .filter(c => uniqueIds.includes(c.id) || c.isDefault === true);
 
         dispatch(cleaningAction.setCleanings(cleaningTodoList));
         router.push('/cleanlist/todo');
@@ -160,7 +159,7 @@ const Index = () => {
     }
 
     return (
-        <Layout>
+        <>
             <progress
                 className={`progress absolute 
                     px-5 w-4/5 w-full progress progress-info 
@@ -198,8 +197,8 @@ const Index = () => {
                 btnTxt='청소 시작!'
                 modalBtnClickHandler={generateTodoList}
             />
-        </Layout>
+        </>
     );
 };
 
-export default Index;
+export default Survey;
