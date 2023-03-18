@@ -2,7 +2,7 @@ export type difficulty = 'very hard' | 'hard' | 'easy';
 export type areaType = 'common' | 'bedroom' | 'bathroom' | 'kitchen' | 'veranda';
 
 type checked = {
-    isChecked?: boolean;
+    isChecked: boolean;
 };
 
 export type cleaning = checked & {

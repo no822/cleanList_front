@@ -8,7 +8,8 @@ const bedroomCleanings: Array<cleaning> = [
         priority: 20,
         isDefault: true,
         cleaningTools: [],
-        area: 'bedroom'
+        area: 'bedroom',
+        isChecked: false
     },
     {
         id: 'bed2',
@@ -17,7 +18,8 @@ const bedroomCleanings: Array<cleaning> = [
         priority: 30,
         isDefault: false,
         cleaningTools: [],
-        area: 'bedroom'
+        area: 'bedroom',
+        isChecked: false
     },
     {
         id: 'bed3',
@@ -26,7 +28,8 @@ const bedroomCleanings: Array<cleaning> = [
         priority: 70,
         isDefault: false,
         cleaningTools: [],
-        area: 'bedroom'
+        area: 'bedroom',
+        isChecked: false
     },
     {
         id: 'bed4',
@@ -35,7 +38,8 @@ const bedroomCleanings: Array<cleaning> = [
         priority: 20,
         isDefault: false,
         cleaningTools: [],
-        area: 'bedroom'
+        area: 'bedroom',
+        isChecked: false
     },
     {
         id: 'bed5',
@@ -44,7 +48,8 @@ const bedroomCleanings: Array<cleaning> = [
         priority: 20,
         isDefault: false,
         cleaningTools: [],
-        area: 'bedroom'
+        area: 'bedroom',
+        isChecked: false
     },
     {
         id: 'bed6',
@@ -53,7 +58,8 @@ const bedroomCleanings: Array<cleaning> = [
         priority: 50,
         isDefault: false,
         cleaningTools: ['청소기 또는 빗자루'],
-        area: 'bedroom'
+        area: 'bedroom',
+        isChecked: false
     },
     {
         id: 'bed7',
@@ -62,7 +68,8 @@ const bedroomCleanings: Array<cleaning> = [
         priority: 60,
         isDefault: false,
         cleaningTools: ['걸레 또는 물청소포'],
-        area: 'bedroom'
+        area: 'bedroom',
+        isChecked: false
     },
     {
         id: 'bed8',
@@ -71,7 +78,8 @@ const bedroomCleanings: Array<cleaning> = [
         priority: 30,
         isDefault: false,
         cleaningTools: [],
-        area: 'bedroom'
+        area: 'bedroom',
+        isChecked: false
     },
     {
         id: 'bed9',
@@ -80,7 +88,8 @@ const bedroomCleanings: Array<cleaning> = [
         priority: 40,
         isDefault: false,
         cleaningTools: [],
-        area: 'bedroom'
+        area: 'bedroom',
+        isChecked: false
     },
     {
         id: 'bed10',
@@ -89,7 +98,8 @@ const bedroomCleanings: Array<cleaning> = [
         priority: 40,
         isDefault: false,
         cleaningTools: ['빗자루 또는 청소기', '물걸레 또는 청소포'],
-        area: 'bedroom'
+        area: 'bedroom',
+        isChecked: false
     },
 ];
 

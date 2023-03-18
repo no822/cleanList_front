@@ -8,7 +8,8 @@ const kitchenCleanings: Array<cleaning> = [
         priority: 20,
         isDefault: false,
         cleaningTools: ['주방세제'],
-        area: 'bathroom'
+        area: 'bathroom',
+        isChecked: false
     },
     {
         id: 'kitchen2',
@@ -17,7 +18,8 @@ const kitchenCleanings: Array<cleaning> = [
         priority: 21,
         isDefault: false,
         cleaningTools: ['뜨거운물'],
-        area: 'bathroom'
+        area: 'bathroom',
+        isChecked: false
     },
     {
         id: 'kitchen3',
@@ -26,7 +28,8 @@ const kitchenCleanings: Array<cleaning> = [
         priority: 30,
         isDefault: false,
         cleaningTools: ['베이킹소다'],
-        area: 'bathroom'
+        area: 'bathroom',
+        isChecked: false
     },
     {
         id: 'kitchen4',
@@ -35,7 +38,8 @@ const kitchenCleanings: Array<cleaning> = [
         priority: 50,
         isDefault: false,
         cleaningTools: ['빗자루 또는 청소기'],
-        area: 'bathroom'
+        area: 'bathroom',
+        isChecked: false
     },
     {
         id: 'kitchen5',
@@ -44,7 +48,8 @@ const kitchenCleanings: Array<cleaning> = [
         priority: 60,
         isDefault: false,
         cleaningTools: ['물걸레 또는 청소포'],
-        area: 'bathroom'
+        area: 'bathroom',
+        isChecked: false
     },
     {
         id: 'kitchen6',
@@ -53,7 +58,8 @@ const kitchenCleanings: Array<cleaning> = [
         priority: 70,
         isDefault: false,
         cleaningTools: ['물걸레 또는 청소포'],
-        area: 'bathroom'
+        area: 'bathroom',
+        isChecked: false
     },
     {
         id: 'kitchen7',
@@ -62,7 +68,8 @@ const kitchenCleanings: Array<cleaning> = [
         priority: 80,
         isDefault: false,
         cleaningTools: ['음식물 쓰레기 봉투'],
-        area: 'bathroom'
+        area: 'bathroom',
+        isChecked: false
     },
     {
         id: 'kitchen8',
@@ -71,7 +78,8 @@ const kitchenCleanings: Array<cleaning> = [
         priority: 70,
         isDefault: false,
         cleaningTools: ['물걸레 또는 청소포'],
-        area: 'bathroom'
+        area: 'bathroom',
+        isChecked: false
     },
     {
         id: 'kitchen9',
@@ -80,7 +88,8 @@ const kitchenCleanings: Array<cleaning> = [
         priority: 70,
         isDefault: false,
         cleaningTools: ['물걸레 또는 청소포'],
-        area: 'bathroom'
+        area: 'bathroom',
+        isChecked: false
     },
     {
         id: 'kitchen10',
@@ -89,7 +98,8 @@ const kitchenCleanings: Array<cleaning> = [
         priority: 70,
         isDefault: false,
         cleaningTools: ['물걸레 또는 청소포'],
-        area: 'bathroom'
+        area: 'bathroom',
+        isChecked: false
     },
     {
         id: 'kitchen11',
@@ -98,7 +108,8 @@ const kitchenCleanings: Array<cleaning> = [
         priority: 70,
         isDefault: false,
         cleaningTools: [],
-        area: 'bathroom'
+        area: 'bathroom',
+        isChecked: false
     },
     {
         id: 'kitchen12',
@@ -107,7 +118,8 @@ const kitchenCleanings: Array<cleaning> = [
         priority: 70,
         isDefault: false,
         cleaningTools: ['물걸레 또는 청소포'],
-        area: 'bathroom'
+        area: 'bathroom',
+        isChecked: false
     },
 ];
 

@@ -8,7 +8,8 @@ const verandaCleanings: Array<cleaning> = [
         priority: 20,
         isDefault: false,
         cleaningTools: ['주방세제'],
-        area: 'bathroom'
+        area: 'bathroom',
+        isChecked: false
     },
     {
         id: 'veranda2',
@@ -17,7 +18,8 @@ const verandaCleanings: Array<cleaning> = [
         priority: 30,
         isDefault: false,
         cleaningTools: ['빗자루 또는 청소기'],
-        area: 'bathroom'
+        area: 'bathroom',
+        isChecked: false
     },
     {
         id: 'veranda3',
@@ -26,7 +28,8 @@ const verandaCleanings: Array<cleaning> = [
         priority: 40,
         isDefault: false,
         cleaningTools: ['물걸레 또는 청소포'],
-        area: 'bathroom'
+        area: 'bathroom',
+        isChecked: false
     },
 ];
 

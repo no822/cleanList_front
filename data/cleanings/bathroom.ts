@@ -8,7 +8,8 @@ const bathroomCleanings: Array<cleaning> = [
         priority: 20,
         isDefault: true,
         cleaningTools: [],
-        area: 'bathroom'
+        area: 'bathroom',
+        isChecked: false
     },
     {
         id: 'bath2',
@@ -17,7 +18,8 @@ const bathroomCleanings: Array<cleaning> = [
         priority: 30,
         isDefault: false,
         cleaningTools: ['뜨거운물'],
-        area: 'bathroom'
+        area: 'bathroom',
+        isChecked: false
     },
     {
         id: 'bath3',
@@ -26,7 +28,8 @@ const bathroomCleanings: Array<cleaning> = [
         priority: 40,
         isDefault: false,
         cleaningTools: ['세정제'],
-        area: 'bathroom'
+        area: 'bathroom',
+        isChecked: false
     },
     {
         id: 'bath4',
@@ -35,7 +38,8 @@ const bathroomCleanings: Array<cleaning> = [
         priority: 60,
         isDefault: false,
         cleaningTools: ['청소용솔'],
-        area: 'bathroom'
+        area: 'bathroom',
+        isChecked: false
     },
     {
         id: 'bath5',
@@ -44,7 +48,8 @@ const bathroomCleanings: Array<cleaning> = [
         priority: 60,
         isDefault: false,
         cleaningTools: ['청소용솔'],
-        area: 'bathroom'
+        area: 'bathroom',
+        isChecked: false
     },
     {
         id: 'bath6',
@@ -53,7 +58,8 @@ const bathroomCleanings: Array<cleaning> = [
         priority: 60,
         isDefault: false,
         cleaningTools: ['청소용솔'],
-        area: 'bathroom'
+        area: 'bathroom',
+        isChecked: false
     },
     {
         id: 'bath7',
@@ -62,7 +68,8 @@ const bathroomCleanings: Array<cleaning> = [
         priority: 70,
         isDefault: false,
         cleaningTools: ['세정제', '청소용솔'],
-        area: 'bathroom'
+        area: 'bathroom',
+        isChecked: false
     },
     {
         id: 'bath8',
@@ -71,7 +78,8 @@ const bathroomCleanings: Array<cleaning> = [
         priority: 70,
         isDefault: false,
         cleaningTools: ['세정제', '청소용솔'],
-        area: 'bathroom'
+        area: 'bathroom',
+        isChecked: false
     },
     {
         id: 'bath9',
@@ -80,7 +88,8 @@ const bathroomCleanings: Array<cleaning> = [
         priority: 80,
         isDefault: false,
         cleaningTools: ['끓인물', '베이킹소다'],
-        area: 'bathroom'
+        area: 'bathroom',
+        isChecked: false
     },
     {
         id: 'bath10',
@@ -89,7 +98,8 @@ const bathroomCleanings: Array<cleaning> = [
         priority: 80,
         isDefault: false,
         cleaningTools: ['곰팡이제거제'],
-        area: 'bathroom'
+        area: 'bathroom',
+        isChecked: false
     },
 ];
 

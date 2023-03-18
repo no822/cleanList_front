@@ -8,7 +8,8 @@ const commonCleanings: Array<cleaning> = [
         priority: 1,
         isDefault: true,
         cleaningTools: [],
-        area: 'common'
+        area: 'common',
+        isChecked: false
     },
     {
         id: 'c2',
@@ -17,7 +18,8 @@ const commonCleanings: Array<cleaning> = [
         priority: 10,
         isDefault: false,
         cleaningTools: [],
-        area: 'common'
+        area: 'common',
+        isChecked: false
     },
     {
         id: 'c3',
@@ -26,7 +28,8 @@ const commonCleanings: Array<cleaning> = [
         priority: 100,
         isDefault: false,
         cleaningTools: [],
-        area: 'common'
+        area: 'common',
+        isChecked: false
     },
     {
         id: 'c4',
@@ -35,7 +38,8 @@ const commonCleanings: Array<cleaning> = [
         priority: 100,
         isDefault: false,
         cleaningTools: [],
-        area: 'common'
+        area: 'common',
+        isChecked: false
     },
     {
         id: 'c5',
@@ -44,7 +48,8 @@ const commonCleanings: Array<cleaning> = [
         priority: 100,
         isDefault: false,
         cleaningTools: [],
-        area: 'common'
+        area: 'common',
+        isChecked: false
     },
     {
         id: 'c6',
@@ -53,7 +58,8 @@ const commonCleanings: Array<cleaning> = [
         priority: 100,
         isDefault: false,
         cleaningTools: [],
-        area: 'common'
+        area: 'common',
+        isChecked: false
     },
     {
         id: 'c7',
@@ -62,7 +68,8 @@ const commonCleanings: Array<cleaning> = [
         priority: 100,
         isDefault: false,
         cleaningTools: [],
-        area: 'common'
+        area: 'common',
+        isChecked: false
     },
     {
         id: 'c8',
@@ -71,7 +78,8 @@ const commonCleanings: Array<cleaning> = [
         priority: 100,
         isDefault: false,
         cleaningTools: [],
-        area: 'common'
+        area: 'common',
+        isChecked: false
     },
     {
         id: 'c9',
@@ -80,7 +88,8 @@ const commonCleanings: Array<cleaning> = [
         priority: 100,
         isDefault: false,
         cleaningTools: [],
-        area: 'common'
+        area: 'common',
+        isChecked: false
     },
 ];
 
