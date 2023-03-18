@@ -17,6 +17,7 @@ import kitchenCleanings from "../../data/cleanings/kitchen";
 import verandaCleanings from "../../data/cleanings/veranda";
 
 import InformModal from "../../components/ui/InformModal";
+import BarProgress from "../../components/ui/BarProgress";
 import YesOrNoQuestion from "../../components/questions/YesOrNoQuestion";
 import OneInMoreQuestion from "../../components/questions/OneInMoreQuestion";
 
@@ -37,7 +38,7 @@ import {
  * ex: 욕실 벽면 청소를 하실 건가요? -> yes 선택시 <욕실벽면청소> 추가
  */
 
-const Survey = () => {
+const SurveyPage = () => {
     const dispatch = useAppDispatch();
     const router = useRouter();
 
@@ -53,6 +54,7 @@ const Survey = () => {
     const [currentQuestion, setCurrentQuestion] = useState<questionTypes>();
     const [isPrequestionProcedure, setIsPrequestionProcedure] = useState<boolean>(true);
     const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+    const [area, setArea] = useState<'bedroom' | 'bathroom' | 'kitchen' | 'veranda' | ''>('');
 
     const currentIndex = useRef(0);
     const answeredMainQuestion = mainQuestions.filter(q => q.answer !== undefined).length;
@@ -68,7 +70,7 @@ const Survey = () => {
 
     useEffect(() => {
         const [areaQuestion, difficultyQuestion] = preQuestions;
-        const area = areaQuestion.answer;
+        const area = areaQuestion.answer as 'bedroom' | 'bathroom' | 'kitchen' | 'veranda';
         const difficulty = difficultyQuestion.answer;
         const isEndPreQuestion = area && difficulty; // 사전질문 2개 모두 답변한 경우
 
@@ -88,6 +90,7 @@ const Survey = () => {
             currentIndex.current = 0;
             setIsPrequestionProcedure(false);
             setMainQuestions(filtered);
+            setArea(area);
         }
     }, [preQuestions]);
 
@@ -95,10 +98,12 @@ const Survey = () => {
     useEffect(() => {
         if (!isPrequestionProcedure) {
             setProgressTxt(
-                isCompleteSurvey ? '설문완료!' : `${remainMainQuestion}개의 질문이 남았습니다.`);
+                isCompleteSurvey
+                    ? '설문완료!'
+                    : `${remainMainQuestion}개의 질문이 남았습니다.`);
             setCurrentQuestion(mainQuestions[currentIndex.current]);
         }
-    }, [mainQuestions]);
+    }, [mainQuestions, isCompleteSurvey]);
 
 
     const recordAnswer = (answer: string | boolean) => {
@@ -111,14 +116,19 @@ const Survey = () => {
 
 
     const nextQuestion = (question: questionTypes) => {
-        const newQuestions = (isPrequestionProcedure) ? [...preQuestions] : [...mainQuestions];
+        const newQuestions = (isPrequestionProcedure)
+            ? [...preQuestions]
+            : [...mainQuestions];
         const isQuestion = newQuestions[currentIndex.current] != null;
         if (isQuestion) {
             newQuestions[currentIndex.current] = question;
             currentIndex.current += 1;
-            (isPrequestionProcedure) ? setPrequestions(newQuestions) : setMainQuestions(newQuestions);
+            (isPrequestionProcedure)
+                ? setPrequestions(newQuestions)
+                : setMainQuestions(newQuestions);
         }
     };
+
 
     useEffect(() => {
         if (isCompleteSurvey) {
@@ -151,22 +161,18 @@ const Survey = () => {
         );
 
         const cleaningTodoList: Array<cleaning> = cleaningsData
-            .filter(c => uniqueIds.includes(c.id) || c.isDefault === true);
+            .filter(c => uniqueIds.includes(c.id) || c.isDefault);
 
         dispatch(cleaningAction.setCleanings(cleaningTodoList));
+        dispatch(cleaningAction.setArea(area));
+
         router.push('/cleanlist/todo');
-        setIsModalOpen(false);
     }
+
 
     return (
         <>
-            <progress
-                className={`progress absolute 
-                    px-5 w-4/5 w-full progress progress-info 
-                    translate-x-1/2 right-1/2 `}
-                value={answeredMainQuestion}
-                max={mainQuestions.length}
-            ></progress>
+            <BarProgress value={answeredMainQuestion} maxValue={mainQuestions.length} />
             <p className='absolute w-60 translate-x-1/2 right-1/2 top-11 text-center'>{progressTxt}</p>
             <div className='h-full w-full flex justify-center items-center'>
                 {isYesOrNo(currentQuestion) &&
@@ -201,4 +207,4 @@ const Survey = () => {
     );
 };
 
-export default Survey;
+export default SurveyPage;

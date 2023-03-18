@@ -1,16 +1,20 @@
 import React, {useState, useEffect} from 'react';
 import {useRouter} from "next/router";
 import TodoContainer from "../../components/ui/Todo";
-import {useAppSelector} from "../../store/hooks";
-import {selectCleanings} from "../../store/cleaningSlice";
+import {useAppSelector, useAppDispatch} from "../../store/hooks";
+import {cleaningAction, selectCleanings} from "../../store/cleaningSlice";
 import RadialProgress from "../../components/ui/RadialProgress";
 
-const TodoList = () => {
+const TodoListPage = () => {
     const router = useRouter();
-    const [progress, setProgress] = useState(50);
+    const dispatch = useAppDispatch();
     const cleanings = useAppSelector(selectCleanings);
     const orderByPriority = [...cleanings]
         .sort((a, b) => a.priority - b.priority);
+
+    const totalLength = orderByPriority.length;
+    const checked = orderByPriority.filter(cleaning => cleaning.isChecked).length;
+    const progress = (totalLength === 0) ? 0 : Math.round((checked / totalLength) * 100);
 
     useEffect(() => {
         if (orderByPriority.length === 0) {
@@ -25,6 +29,9 @@ const TodoList = () => {
     //  - todolist 의 기능들: 순서정렬, 제거, completed
     //  - 추가, 수정(desc)의 경우는? -> 일단 보류
 
+    const checkTodoHandler = (isChecked: boolean, id: string) => {
+        dispatch(cleaningAction.checkCleaning({isChecked, id}));
+    }
 
     const getAnimateClassByIndex = (index: number, length: number) => {
         const milliseconds = new Array(length)
@@ -36,7 +43,14 @@ const TodoList = () => {
 
     return (
         <div className='w-full'>
-            <div className='flex justify-end pb-4'>
+            <div className='flex justify-between items-center pb-4'>
+                <div>
+                    {progress >= 0 && progress < 30 && '30% 이하'}
+                    {progress >= 30 && progress < 50 && '30% 이상'}
+                    {progress >= 50 && progress < 70 && '50% 이상'}
+                    {progress >= 70 && progress < 90 && '70% 이상'}
+                    {progress >= 90 && progress < 100 && '90% 이상'}
+                </div>
                 <RadialProgress nextValue={progress}/>
             </div>
             <ul className="flex flex-col gap-2 w-full pb-4">
@@ -47,14 +61,14 @@ const TodoList = () => {
                             <TodoContainer
                                 animate={animationClass}
                                 key={cleaning.id}
+                                onCheck={checkTodoHandler}
                                 todo={cleaning}
                             />
                         );
                     })}
             </ul>
-
         </div>
     );
 };
 
-export default TodoList;
+export default TodoListPage;

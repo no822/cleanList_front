@@ -20,7 +20,7 @@ const RadialProgress = ({nextValue}: propsType) => {
     return (
         // @ts-ignore
         <animated.div className="radial-progress bg-sky-200 text-sky-600" style={styles}>
-            {styles["--value"].to((v) => v.toFixed(1) + "%")}
+            {(nextValue === 100) ? "완료!" : styles["--value"].to((v) => v.toFixed(0) + "%")}
         </animated.div>
     );
 };

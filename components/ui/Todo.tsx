@@ -1,17 +1,25 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {cleaning} from "../../data/types/cleanings";
 
 type propsType = {
     todo: cleaning;
     animate: string;
+    onCheck: (isCheck: boolean, id: string) => void;
 }
 
-const TodoContainer = ({todo, animate}: propsType) => {
+const TodoContainer = ({todo, animate, onCheck}: propsType) => {
     const [isChecked, setIsChecked] = useState<boolean>(false);
 
     const toggleCheck = () => {
-        setIsChecked(prev => !prev);
+        setIsChecked(prev => {
+            return !prev;
+        });
     }
+
+    useEffect(() => {
+        onCheck(isChecked, todo.id);
+    }, [isChecked]);
+
 
     return (
         <div className={`${animate} translate-x-full todo-container relative alert bg-sky-400 shadow-lg`}>
