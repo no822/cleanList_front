@@ -17,6 +17,7 @@ body {
 
 main {
   height: calc(100% - 65px);
+  overflow-x: hidden;
 }
 
 a {
@@ -44,4 +45,93 @@ progress::-webkit-progress-value {
 
 .btm-nav>*:where(.active) {
   transition: 0.2s border-top-width;
+}
+
+@keyframes slide {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0%);
+  }
+}
+
+.todo-container {
+  animation-fill-mode: forwards;
+}
+
+.todo-50 {
+  animation-delay: 50ms;
+}
+.todo-100 {
+  animation-delay: 100ms;
+}
+.todo-150 {
+  animation-delay: 150ms;
+}
+.todo-200 {
+  animation-delay: 200ms;
+}
+.todo-250 {
+  animation-delay: 250ms;
+}
+.todo-300 {
+  animation-delay: 300ms;
+}
+.todo-350 {
+  animation-delay: 350ms;
+}
+.todo-400 {
+  animation-delay: 400ms;
+}
+.todo-450 {
+  animation-delay: 450ms;
+}
+.todo-500 {
+  animation-delay: 500ms;
+}
+.todo-550 {
+  animation-delay: 550ms;
+}
+.todo-600 {
+  animation-delay: 600ms;
+}
+.todo-650 {
+  animation-delay: 650ms;
+}
+.todo-700 {
+  animation-delay: 700ms;
+}
+.todo-750 {
+  animation-delay: 750ms;
+}
+.todo-800 {
+  animation-delay: 800ms;
+}
+.todo-850 {
+  animation-delay: 850ms;
+}
+.todo-900 {
+  animation-delay: 900ms;
+}
+.todo-950 {
+  animation-delay: 950ms;
+}
+.todo-1000 {
+  animation-delay: 1000ms;
+}
+.todo-1050 {
+  animation-delay: 1050ms;
+}
+.todo-1100 {
+  animation-delay: 1100ms;
+}
+.todo-1150 {
+  animation-delay: 1150ms;
+}
+.todo-1200 {
+  animation-delay: 1200ms;
+}
+.todo-1250 {
+  animation-delay: 1250ms;
 }

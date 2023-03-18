@@ -2,10 +2,11 @@ import React, {useState} from 'react';
 import {cleaning} from "../../data/types/cleanings";
 
 type propsType = {
-    todo: cleaning
+    todo: cleaning;
+    animate: string;
 }
 
-const TodoContainer = ({todo}: propsType) => {
+const TodoContainer = ({todo, animate}: propsType) => {
     const [isChecked, setIsChecked] = useState<boolean>(false);
 
     const toggleCheck = () => {
@@ -13,7 +14,7 @@ const TodoContainer = ({todo}: propsType) => {
     }
 
     return (
-        <div className="relative alert bg-sky-400 shadow-lg">
+        <div className={`${animate} translate-x-full todo-container relative alert bg-sky-400 shadow-lg`}>
             <div>
                 <input
                     type="checkbox"

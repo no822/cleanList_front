@@ -12,8 +12,17 @@ module.exports = {
     extend: {
       transitionProperty: {
         width: 'width'
-      }
+      },
+      keyframes: {
+        slide: {
+          '0%': {transform: 'translateX(100%)'},
+          '100%': {transform: 'translateX(0%)'}
+        }
+      },
     },
   },
-  plugins: [require("daisyui")],
+  plugins: [
+      require("daisyui"),
+      require("tailwindcss-animation-delay")
+  ],
 }
