@@ -31,14 +31,6 @@ export type oneInMore = basicQuestion & {
     values: Array<string>;
 };
 
-/**
- * type3: 다지선다 질문, 청소도구 선택(= 해당 청소도구와 연관된 청소들만 필터링)
- * cleaningTools에 answer에 있는 값들이 있는 청소들을 추가
- */
-export type moreInMore = basicQuestion & {
-    answer?: Array<string>; // 청소도구들
-};
-
 
 /** type guard **/
 export function isYesOrNo(question?: questionTypes): question is yesOrNo {
