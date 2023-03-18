@@ -21,8 +21,8 @@ const TodoContainer = ({todo}: propsType) => {
                     checked={isChecked}
                     className="checkbox absolute top-1/2 left-4 -translate-y-1/2"
                 />
-                <span className={`${isChecked ? 'line-through text-gray-300' : ''} 
-                                text-2xl font-bold text-sky-50`}>
+                <span className={`text-2xl font-bold text-sky-50
+                                    ${isChecked ? 'line-through text-zinc-400 italic' : ''}`}>
                     {todo.desc}
                 </span>
             </div>
