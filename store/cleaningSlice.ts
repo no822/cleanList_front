@@ -35,5 +35,8 @@ const cleaningSlice = createSlice({
 });
 
 export const cleaningAction = cleaningSlice.actions;
+
 export const selectCleanings = (state: RootState) => state.cleaning.todoCleanings;
+export const selectArea = (state: RootState) => state.cleaning.area;
+
 export default cleaningSlice.reducer;
