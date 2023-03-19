@@ -26,8 +26,7 @@ const TodoListPage = () => {
     }, [orderByPriority.length]);
 
     // 1. priority 를 기준으로 오름차순 정렬 ✓
-    // 2. priority 가 같은 cleaning 이 있다면 유저가 정렬할 수 있는 단계 제공
-    // 3. (정렬 후) todolist 렌더링
+    // 2. (정렬 후) todolist 렌더링 ✓
     //  - todolist 의 기능들: 순서정렬, 제거, completed
     //  - 추가, 수정(desc)의 경우는? -> 일단 보류
 
@@ -46,8 +45,10 @@ const TodoListPage = () => {
 
 
     return (
-        <div className='w-full'>
-            <div className='flex justify-between items-center pb-4'>
+        <div className='w-full overflow-auto'>
+            <div className={`mx-0 sticky top-0 z-50
+                            bg-slate-100 w-full py-2 
+                            flex justify-between items-center`}>
                 <div>
                     {progress >= 0 && progress < 30 && '30% 이하'}
                     {progress >= 30 && progress < 50 && '30% 이상'}
@@ -57,7 +58,7 @@ const TodoListPage = () => {
                 </div>
                 <RadialProgress nextValue={progress}/>
             </div>
-            <ul className="flex flex-col gap-2 w-full pb-4">
+            <ul className="flex flex-col gap-2 w-full pt-4 px-2">
                 {orderByPriority.length > 0 &&
                     orderByPriority.map((cleaning, i) => {
                         const animationClass = `${getAnimateClassByIndex(i, orderByPriority.length)}`;
