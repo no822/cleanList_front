@@ -53,6 +53,13 @@ const TodoListPage = () => {
 
     const mappingAreaName = (area: keyof typeof mapToName) => mapToName[area];
 
+    const saveCleaningLog = () => {
+        console.log('save log');
+    };
+
+    const CompleteBtn = () =>
+         <button onClick={saveCleaningLog} className='btn btn-xs btn-info text-zinc-100'>완료</button>;
+
 
     return (
         <div className='w-full overflow-auto'>
@@ -67,7 +74,7 @@ const TodoListPage = () => {
                         {progress >= 50 && progress < 70 && '벌써 절반이나 청소했어요!'}
                         {progress >= 70 && progress < 90 && '이제 꽤 깨끗해지지 않았나요?'}
                         {progress >= 90 && progress < 100 && '거의 끝나갑니다. 힘내세요.'}
-                        {progress === 100 && '오른쪽 완료버튼을 눌러주세요.'}
+                        {progress === 100 && <div>완료버튼을 클릭해주세요. <CompleteBtn /></div>}
                     </div>
                 </div>
                 <div className='pr-2'>
