@@ -29,6 +29,12 @@ const cleaningSlice = createSlice({
             if (targetCleaning) {
                 targetCleaning.isChecked = isChecked;
             }
+        },
+        deleteCleaning(state, action) {
+            const targetId = action.payload;
+            const newCleanings = state.todoCleanings
+                .filter(cleaning => cleaning.id !== targetId);
+            state.todoCleanings = newCleanings;
         }
 
     }

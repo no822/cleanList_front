@@ -1,4 +1,5 @@
 import React from 'react';
+import CloseButton from "./CloseButton";
 
 type propsType = {
     isShow: boolean;
@@ -34,11 +35,7 @@ const InformModal = ({
             <div className={`modal ${isShow ? activeClass : ''}`}>
                 <input type="checkbox" id="close-modal" className="modal-toggle" />
                 <div className="modal-box" html-for="close-modal">
-                    {isClose &&
-                        <label htmlFor="confirm-modal" onClick={onClose}
-                               className="absolute right-5 top-3">
-                          ✕
-                        </label>}
+                    {isClose && <CloseButton onClick={onClose} />}
                     <h3 className="font-bold text-lg">{title}</h3>
                     <p className="py-4 break-keep">{informTxt}</p>
                     <div className="modal-action flex justify-center">
