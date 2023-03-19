@@ -14,7 +14,6 @@ body {
 #__next {
   height: calc(100% - 63px);
   overflow: hidden;
-  border: 1px solid red;
 }
 
 main {
