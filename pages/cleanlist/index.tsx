@@ -43,6 +43,7 @@ const Index = () => {
                 informTxt='해당 투두리스트로 계속 진행할까요?'
                 confirmTxt='투두리스트로 이동'
                 refuseTxt='질문에 대답하기'
+                isClose={true}
                 onConfirm={goToCleaning}
                 onClose={closeModal}
                 onRefuse={refuseHandler}
