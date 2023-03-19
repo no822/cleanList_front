@@ -20,7 +20,7 @@ const TodoContainer = ({todo, animate, onCheck}: propsType) => {
 
 
     return (
-        <div className={`${animate} translate-x-full todo-container relative alert bg-sky-400 shadow-lg`}>
+        <div className={`${animate} select-none translate-x-full todo-container relative alert bg-sky-400 drop-shadow-lg`}>
             <div className='text-center flex justify-center w-full'>
                 <input
                     type="checkbox"

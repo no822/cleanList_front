@@ -10,7 +10,7 @@ const Layout = ({children}: props) => {
     return (
         <div className='max-w-md my-0 mx-auto h-full'>
             <Header />
-            <main className={`relative p-6 flex 
+            <main className={`relative p-6 pb-0 flex 
                         items-stretch bg-slate-100
                         overflow-x-hidden overflow-y-auto`}>
                 {children}

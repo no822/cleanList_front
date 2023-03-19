@@ -50,8 +50,8 @@ const TodoListPage = () => {
         return milliseconds[index];
     }
 
-
     const mappingAreaName = (area: keyof typeof mapToName) => mapToName[area];
+
 
     const saveCleaningLog = () => {
         console.log('save log');
@@ -63,18 +63,18 @@ const TodoListPage = () => {
 
     return (
         <div className='w-full overflow-auto'>
-            <div className={`mx-0 sticky top-0 z-50
+            <div className={`mx-0 sticky top-0 z-50 select-none
                             bg-slate-100 w-full pb-2 
                             flex justify-between items-center`}>
                 <div className='text-sm break-keep flex flex-col pl-2'>
                     <h3 className='text-gray-500'>영역: {area !== "" && mappingAreaName(area)}</h3>
-                    <div className='italic'>
+                    <div className='italic leading-loose'>
                         {progress >= 0 && progress < 30 && '일단 간단한 것부터 해봅시다!'}
                         {progress >= 30 && progress < 50 && '일단 시작하니 의욕이 생기지 않나요?'}
                         {progress >= 50 && progress < 70 && '벌써 절반이나 청소했어요!'}
                         {progress >= 70 && progress < 90 && '이제 꽤 깨끗해지지 않았나요?'}
                         {progress >= 90 && progress < 100 && '거의 끝나갑니다. 힘내세요.'}
-                        {progress === 100 && <div>완료버튼을 클릭해주세요. <CompleteBtn /></div>}
+                        {progress === 100 && <div className='leading-loose'>완료버튼을 클릭해주세요. <CompleteBtn /></div>}
                     </div>
                 </div>
                 <div className='pr-2'>

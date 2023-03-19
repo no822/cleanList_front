@@ -61,6 +61,10 @@ progress::-webkit-progress-value {
   animation-fill-mode: forwards;
 }
 
+.todo-container:last-child {
+  margin-bottom: 16px;
+}
+
 /* todo: 반복코드 작성하지 않는 방법 찾아볼 것 */
 .todo-50 {
   animation-delay: 50ms;
@@ -136,4 +140,10 @@ progress::-webkit-progress-value {
 }
 .todo-1250 {
   animation-delay: 1250ms;
+}
+
+.prevent-select {
+  -webkit-user-select: none; /* Safari */
+  -ms-user-select: none; /* IE 10 and IE 11 */
+  user-select: none; /* Standard syntax */
 }
