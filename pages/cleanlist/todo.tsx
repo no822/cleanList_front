@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useEffect} from 'react';
 import {useRouter} from "next/router";
 import TodoContainer from "../../components/ui/Todo";
 import {useAppSelector, useAppDispatch} from "../../store/hooks";
@@ -12,16 +12,18 @@ const TodoListPage = () => {
     const orderByPriority = [...cleanings]
         .sort((a, b) => a.priority - b.priority);
 
+
     const totalLength = orderByPriority.length;
     const checked = orderByPriority.filter(cleaning => cleaning.isChecked).length;
     const progress = (totalLength === 0) ? 0 : Math.round((checked / totalLength) * 100);
+
 
     useEffect(() => {
         if (orderByPriority.length === 0) {
             router.replace('/cleanlist');
             return;
         }
-    }, [router]);
+    }, [orderByPriority.length]);
 
     // 1. priority 를 기준으로 오름차순 정렬 ✓
     // 2. priority 가 같은 cleaning 이 있다면 유저가 정렬할 수 있는 단계 제공
@@ -33,6 +35,7 @@ const TodoListPage = () => {
         dispatch(cleaningAction.checkCleaning({isChecked, id}));
     }
 
+
     const getAnimateClassByIndex = (index: number, length: number) => {
         const milliseconds = new Array(length)
             .fill(undefined)
@@ -40,6 +43,7 @@ const TodoListPage = () => {
 
         return milliseconds[index];
     }
+
 
     return (
         <div className='w-full'>

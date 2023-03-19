@@ -1,9 +1,28 @@
-import React from 'react';
+import React, {useState} from 'react';
+import {useRouter} from "next/router";
+import {useAppSelector} from "../../store/hooks";
 import Button from "../../components/ui/Button";
 import Card from "../../components/ui/Card";
-import Link from "next/link";
+import {selectCleanings} from "../../store/cleaningSlice";
+import ConfirmModal from "../../components/ui/ConfirmModal";
 
-const index = () => {
+const Index = () => {
+    const router = useRouter();
+    const cleanings = useAppSelector(selectCleanings);
+    const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+
+    const goToSurvey = () => {
+        if (cleanings.length) {
+            setIsModalOpen(true);
+            return;
+        }
+        router.push('/cleanlist/survey');
+    };
+
+    const goToCleaning = () => router.push('/cleanlist/todo');
+    const closeModal = () => setIsModalOpen(false);
+    const refuseHandler = () => router.push('/cleanlist/survey');
+
     return (
         <>
             <div className='w-full flex flex-col items-center justify-between break-keep'>
@@ -12,15 +31,24 @@ const index = () => {
                      몇가지 질문에 대답하여 청소 투두리스트를 생성해보세요.`}
                 </Card>
                 <div className='h-full flex items-center'>
-                    <Link href='/cleanlist/survey'>
-                        <Button className='btn-lg btn-wide'>
-                            질문에 대답하기!
-                        </Button>
-                    </Link>
+                    <Button onClick={goToSurvey} className='btn-lg btn-wide'>
+                        질문에 대답하기!
+                    </Button>
                 </div>
             </div>
+
+            <ConfirmModal
+                isShow={isModalOpen}
+                title='이미 청소중인 투두리스트가 있습니다.'
+                informTxt='해당 투두리스트로 계속 진행할까요?'
+                confirmTxt='투두리스트로 이동'
+                refuseTxt='질문에 대답하기'
+                onConfirm={goToCleaning}
+                onClose={closeModal}
+                onRefuse={refuseHandler}
+            />
         </>
     );
 };
 
-export default index;
+export default Index;

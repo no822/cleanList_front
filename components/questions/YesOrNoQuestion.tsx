@@ -20,10 +20,10 @@ const YesOrNoQuestion = ({...props}: propsType) => {
                 <div className="card-actions flex">
                     <Button
                         className='btn-lg h-32 w-28 max-w-xs'
-                        clickHandler={() => btnClickHandler(true)}>👌네</Button>
+                        onClick={() => btnClickHandler(true)}>👌네</Button>
                     <Button
                         className='btn-lg h-32 w-28 max-w-xs px-0'
-                        clickHandler={() => btnClickHandler(false)}>👋아니요</Button>
+                        onClick={() => btnClickHandler(false)}>👋아니요</Button>
                 </div>
             </div>
 

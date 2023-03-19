@@ -7,9 +7,9 @@ const verandaCleanings: Array<cleaning> = [
         difficulty: 'easy',
         priority: 20,
         isDefault: false,
-        cleaningTools: ['주방세제'],
+        cleaningTools: [],
         area: 'bathroom',
-        isChecked: false
+        isChecked: false,
     },
     {
         id: 'veranda2',

@@ -8,12 +8,10 @@ type propsType = {
 }
 
 const TodoContainer = ({todo, animate, onCheck}: propsType) => {
-    const [isChecked, setIsChecked] = useState<boolean>(false);
+    const [isChecked, setIsChecked] = useState<boolean>(todo.isChecked);
 
     const toggleCheck = () => {
-        setIsChecked(prev => {
-            return !prev;
-        });
+        setIsChecked(prev => !prev);
     }
 
     useEffect(() => {
@@ -23,7 +21,7 @@ const TodoContainer = ({todo, animate, onCheck}: propsType) => {
 
     return (
         <div className={`${animate} translate-x-full todo-container relative alert bg-sky-400 shadow-lg`}>
-            <div>
+            <div className='text-center flex justify-center w-full'>
                 <input
                     type="checkbox"
                     onChange={toggleCheck}

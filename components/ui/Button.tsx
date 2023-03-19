@@ -1,15 +1,15 @@
 import React, {MouseEventHandler, ReactNode} from 'react';
 
 type propType = {
-    clickHandler?: MouseEventHandler<HTMLButtonElement>;
+    onClick?: MouseEventHandler<HTMLButtonElement>;
     className?: string,
     children: ReactNode
 };
 
-const Button = ({clickHandler = () => {}, className, children}: propType) => {
+const Button = ({onClick = () => {}, className, children}: propType) => {
     const buttonText = children || 'button';
     return (
-        <button onClick={clickHandler} className={`btn break-keep ${className}`}>{buttonText}</button>
+        <button onClick={onClick} className={`btn break-keep ${className}`}>{buttonText}</button>
     );
 };
 

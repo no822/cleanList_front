@@ -1,6 +1,6 @@
 import {useRouter} from "next/router";
 import React, {useEffect, useState, useRef} from 'react';
-import {useAppDispatch} from "../../store/hooks";
+import {useAppSelector, useAppDispatch} from "../../store/hooks";
 import {cleaningAction} from "../../store/cleaningSlice";
 
 import preQuestionsData from "../../data/questions/preQuestions";
@@ -154,7 +154,7 @@ const SurveyPage = () => {
 
         const additionalCleaningIds = answeredQuestions
             .filter(q => q.additionalCleaning)
-            .filter(q => q.cleaningId);
+            .map(q => q.cleaningId);
 
         const uniqueIds = Array.from(
             new Set([...cleaningsIds, ...additionalCleaningIds])
@@ -201,7 +201,7 @@ const SurveyPage = () => {
                 title='설문이 완료되었습니다.'
                 informTxt='청소시작 버튼을 눌러서 투두리스트를 완성하세요!'
                 btnTxt='청소 시작!'
-                modalBtnClickHandler={generateTodoList}
+                onClick={generateTodoList}
             />
         </>
     );

@@ -26,7 +26,7 @@ const OneInMoreQuestion = ({...props}: propsType) => {
                 {props.options.map((text, i) =>
                     <Button
                         className=' btn-lg h-20 w-full p-0'
-                        key={i} clickHandler={(_) => buttonClickHandler(_, i)}
+                        key={i} onClick={(_) => buttonClickHandler(_, i)}
                     >
                         {text}
                     </Button>
