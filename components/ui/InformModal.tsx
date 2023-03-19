@@ -31,7 +31,7 @@ const InformModal = ({
                 <div className="modal-box">
                     {isClose &&
                         <label htmlFor="inform-modal" onClick={onClose}
-                            className="btn btn-sm absolute right-2 top-2">
+                            className="absolute right-5 top-3">
                           ✕
                         </label>}
                     <h3 className="font-bold text-lg">{title}</h3>
