@@ -47,13 +47,13 @@ const TodoContainer = ({id, todo, animate, onCheck, onDelete}: propsType) => {
         <div className={`${animate} relative alert bg-sky-400 drop-shadow-lg`}
               ref={setNodeRef} {...attributes}  style={itemStyle}
         >
+            <input
+                type="checkbox"
+                onChange={toggleCheck}
+                checked={isChecked}
+                className="checkbox absolute top-1/2 left-4 -translate-y-1/2"
+            />
             <div {...listeners} className='h-full text-center flex justify-center items-center w-full cursor-grab'>
-                <input
-                    type="checkbox"
-                    onChange={toggleCheck}
-                    checked={isChecked}
-                    className="checkbox absolute top-1/2 left-4 -translate-y-1/2"
-                />
                 <span className={`${isChecked ? 'line-through text-zinc-400 italic' : ''}
                                   text-2xl font-bold text-sky-50`}>
                     {todo.desc}
