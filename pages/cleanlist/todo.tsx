@@ -96,7 +96,6 @@ const TodoListPage = () => {
 
     const sensors = useSensors(
         useSensor(PointerSensor),
-        useSensor(TouchSensor),
         useSensor(KeyboardSensor, {
             coordinateGetter: sortableKeyboardCoordinates
         })
@@ -119,7 +118,7 @@ const TodoListPage = () => {
     return (
         <div className='w-full overflow-auto'>
             <div className={`mx-0 sticky top-0 z-50 
-                            bg-slate-100 w-full pb-2 select-none 
+                            bg-slate-100 w-full pb-2  
                             flex justify-between items-center`}
             >
                 <div className='text-sm break-keep flex flex-col pl-2'>
@@ -146,7 +145,7 @@ const TodoListPage = () => {
                         onDragEnd={handleDragEnd}
             >
                 <SortableContext items={cleanings} id={dragId}>
-                    <ul ref={setNodeRef} className="flex flex-col gap-2 w-full pt-4 px-2">
+                    <ul ref={setNodeRef} className=" overflow-auto flex flex-col gap-4 w-full pt-4 px-2">
                         {cleanings.map((cleaning, i) => {
                             const animationClass = `${getAnimateClassByIndex(i,cleanings.length)}`;
                             return (
