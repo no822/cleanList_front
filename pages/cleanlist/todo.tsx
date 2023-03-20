@@ -143,7 +143,7 @@ const TodoListPage = () => {
                         onDragEnd={handleDragEnd}
             >
                 <SortableContext items={cleanings} id={dragId}>
-                    <ul ref={setNodeRef} className="z-50 flex flex-col gap-5 w-full pt-4 px-2">
+                    <ul ref={setNodeRef} className="z-50 flex flex-col gap-4 w-full pt-4 px-2">
                         {cleanings.map((cleaning, i) => {
                             const animationClass = `${getAnimateClassByIndex(i,cleanings.length)}`;
                             return (
