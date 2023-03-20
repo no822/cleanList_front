@@ -55,7 +55,7 @@ const TodoContainer = ({id, todo, animate, onCheck, onDelete}: propsType) => {
                     checked={isChecked}
                     className="checkbox absolute top-1/2 left-4 -translate-y-1/2"
                 />
-                <div {...listeners} className='absolute left-11 w-7'><RxDragHandleDots2 /></div>
+                <div {...listeners} className='flex justify-center items-center absolute left-10 h-8 w-8'><RxDragHandleDots2 /></div>
                 <span className={`${isChecked ? 'line-through text-zinc-400 italic' : ''}
                                   text-2xl font-bold text-sky-50`}>
                     {todo.desc}

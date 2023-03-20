@@ -16,7 +16,7 @@ import {
     useSensors
 } from '@dnd-kit/core';
 import {arrayMove, SortableContext, sortableKeyboardCoordinates} from "@dnd-kit/sortable";
-import {restrictToFirstScrollableAncestor} from "@dnd-kit/modifiers";
+import {restrictToFirstScrollableAncestor, restrictToVerticalAxis} from "@dnd-kit/modifiers";
 
 
 export const mapToName = {
@@ -139,7 +139,7 @@ const TodoListPage = () => {
             </div>
 
             <DndContext sensors={sensors}
-                        modifiers={[restrictToFirstScrollableAncestor]}
+                        modifiers={[restrictToVerticalAxis]}
                         onDragEnd={handleDragEnd}
             >
                 <SortableContext items={cleanings} id={dragId}>
