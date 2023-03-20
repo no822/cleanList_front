@@ -46,7 +46,7 @@ const TodoContainer = ({id, todo, animate, onCheck, onDelete}: propsType) => {
         <div className={`${animate} todo-container relative alert bg-sky-400 drop-shadow-lg`}
               ref={setNodeRef} {...attributes}  style={itemStyle}
         >
-            <div className={`touch-none h-full text-center 
+            <div className={`h-full text-center border border-red-500 
                             flex justify-center items-center w-full cursor-grab`}
             >
                 <input
