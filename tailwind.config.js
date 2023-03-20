@@ -15,14 +15,15 @@ module.exports = {
       },
       keyframes: {
         slide: {
-          '0%': {transform: 'translateX(100%)'},
-          '100%': {transform: 'translateX(0%)'}
+          // '0%': {transform: 'translateX(100%)'},
+          // '100%': {transform: 'translateX(0%)'}
         }
       },
     },
   },
   plugins: [
       require("daisyui"),
-      require("tailwindcss-animation-delay")
+      require("tailwindcss-animation-delay"),
+      require("tailwindcss-animate"),
   ],
 }

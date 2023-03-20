@@ -1,17 +1,37 @@
 import React, {useState, useEffect} from 'react';
 import {cleaning} from "../../data/types/cleanings";
 import CloseButton from "./CloseButton";
-import ConfirmModal from "./ConfirmModal";
+import { useSortable } from "@dnd-kit/sortable";
+import { CSS } from "@dnd-kit/utilities";
 
 type propsType = {
+    id: string;
     todo: cleaning;
     animate: string;
     onCheck: (isCheck: boolean, id: string) => void;
     onDelete: (id: string) => void;
 }
 
-const TodoContainer = ({todo, animate, onCheck, onDelete}: propsType) => {
+const TodoContainer = ({id, todo, animate, onCheck, onDelete}: propsType) => {
     const [isChecked, setIsChecked] = useState<boolean>(todo.isChecked);
+    const {
+        attributes,
+        listeners,
+        setNodeRef,
+        transform,
+        transition
+    } = useSortable(
+        { id: id }
+    );
+
+    const itemStyle: any = {
+        transform: CSS.Transform.toString(transform),
+        transition,
+        boxSizing: "border-box",
+        touchAction: "none", // 해제하면 모바일 드래깅 안됨(https://docs.dndkit.com/api-documentation/draggable#recommendations
+        cursor: 'auto'
+    };
+
 
     const toggleCheck = () => {
         setIsChecked(prev => !prev);
@@ -24,9 +44,10 @@ const TodoContainer = ({todo, animate, onCheck, onDelete}: propsType) => {
 
 
     return (
-        <div className={`${animate} select-none translate-x-full todo-container 
-                        relative alert bg-sky-400 drop-shadow-lg`}>
-            <div className='text-center flex justify-center items-center w-full'>
+        <div className={`${animate} relative alert bg-sky-400 drop-shadow-lg`}
+              ref={setNodeRef} {...attributes}  style={itemStyle}
+        >
+            <div {...listeners} className='h-full text-center flex justify-center items-center w-full cursor-grab'>
                 <input
                     type="checkbox"
                     onChange={toggleCheck}
@@ -37,8 +58,8 @@ const TodoContainer = ({todo, animate, onCheck, onDelete}: propsType) => {
                                   text-2xl font-bold text-sky-50`}>
                     {todo.desc}
                 </span>
-                <CloseButton className='top-5' onClick={() => onDelete(todo.id)} />
             </div>
+            <CloseButton className='top-3 right-2 flex justify-center w-8' onClick={() => onDelete(todo.id)} />
         </div>
     );
 };

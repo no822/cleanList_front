@@ -25,10 +25,11 @@ const Index = () => {
 
     return (
         <>
-            <div className='w-full flex flex-col items-center justify-between break-keep'>
-                <Card title='안내'>
+            <div className='w-full flex flex-col items-center justify-between'>
+                <Card title='안내' className='break-keep'>
                     {`청소가 귀찮은 사람들도 청소를 잘 할 수 있는 투두리스트 생성기! 😎 \n
-                     몇가지 질문에 대답하여 청소 투두리스트를 생성해보세요.`}
+                     몇가지 질문에 대답하여 청소 투두리스트를 생성해보세요. \n
+                     집의 특정구역을 청소한지 얼마나 오래됐는지 도면 메뉴에서 확인할 수 있습니다.`}
                 </Card>
                 <div className='h-full flex items-center'>
                     <Button onClick={goToSurvey} className='btn-lg btn-wide'>

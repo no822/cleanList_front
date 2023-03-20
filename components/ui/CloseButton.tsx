@@ -7,12 +7,12 @@ type propsType = {
 
 const CloseButton = ({onClick, className}: propsType) => {
     return (
-        <label htmlFor="close-button"
+        <button
                onClick={onClick}
-               className={`absolute right-5 top-3 ${className}`}
+               className={`z-50 absolute right-5 top-3 ${className}`}
         >
             ✕
-        </label>
+        </button>
     );
 };
 

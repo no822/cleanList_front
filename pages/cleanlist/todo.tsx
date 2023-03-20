@@ -5,6 +5,19 @@ import {useAppSelector, useAppDispatch} from "../../store/hooks";
 import {cleaningAction, selectArea, selectCleanings} from "../../store/cleaningSlice";
 import RadialProgress from "../../components/ui/RadialProgress";
 import ConfirmModal from "../../components/ui/ConfirmModal";
+import {
+    DndContext,
+    DragEndEvent,
+    KeyboardSensor,
+    PointerSensor,
+    TouchSensor,
+    useDroppable,
+    useSensor,
+    useSensors
+} from '@dnd-kit/core';
+import {arrayMove, SortableContext, sortableKeyboardCoordinates} from "@dnd-kit/sortable";
+import {restrictToFirstScrollableAncestor} from "@dnd-kit/modifiers";
+
 
 export const mapToName = {
     bedroom: '안방',
@@ -13,34 +26,32 @@ export const mapToName = {
     kitchen: '주방'
 };
 
+const dragId = 'todoDraggable';
+
 const TodoListPage = () => {
     const router = useRouter();
     const dispatch = useAppDispatch();
 
+
     const cleanings = useAppSelector(selectCleanings);
     const area = useAppSelector(selectArea);
-    const orderByPriority = [...cleanings]
-        .sort((a, b) => a.priority - b.priority);
+
 
     const [isDeleteModal, setDeleteModal] = useState<boolean>(false);
     const [deleteTargetId, setDeleteTargetId] = useState<string | null>(null);
 
-    const totalLength = orderByPriority.length;
-    const checked = orderByPriority.filter(cleaning => cleaning.isChecked).length;
+    const totalLength =cleanings.length;
+    const checked =cleanings.filter(cleaning => cleaning.isChecked).length;
     const progress = (totalLength === 0) ? 0 : Math.round((checked / totalLength) * 100);
 
 
     useEffect(() => {
-        if (orderByPriority.length === 0) {
+        if (cleanings.length === 0) {
             router.replace('/cleanlist');
             return;
         }
-    }, [orderByPriority.length]);
+    }, [cleanings.length]);
 
-    // 1. priority 를 기준으로 오름차순 정렬 ✓
-    // 2. (정렬 후) todolist 렌더링 ✓
-    //  - todolist 의 기능들: 순서정렬, 제거, completed
-    //  - 추가, 수정(desc)의 경우는? -> 일단 보류
 
     const checkTodoHandler = (isChecked: boolean, id: string) => {
         dispatch(cleaningAction.checkCleaning({isChecked, id}));
@@ -50,7 +61,7 @@ const TodoListPage = () => {
     const getAnimateClassByIndex = (index: number, length: number) => {
         const milliseconds = new Array(length)
             .fill(undefined)
-            .map((_, i) => `animate-[slide_1s_ease-in-out] todo-${(i+1) * 50}`);
+            .map((_, i) => `fade-in-${5*i}`);
         return milliseconds[index];
     }
 
@@ -59,6 +70,7 @@ const TodoListPage = () => {
 
 
     const openDeleteModal = (id: string) => {
+        console.log('open')
         setDeleteModal(true);
         setDeleteTargetId(id);
     }
@@ -80,6 +92,29 @@ const TodoListPage = () => {
     const CompleteBtn = () =>
          <button onClick={saveCleaningLog} className='btn btn-xs btn-info text-zinc-100'>완료</button>;
 
+    const { setNodeRef } = useDroppable({id: dragId});
+
+    const sensors = useSensors(
+        useSensor(PointerSensor),
+        useSensor(TouchSensor),
+        useSensor(KeyboardSensor, {
+            coordinateGetter: sortableKeyboardCoordinates
+        })
+    );
+
+
+    const handleDragEnd = ({ active, over }: DragEndEvent) => {
+        if (!over) {
+            return;
+        }
+        console.log('drag')
+        if (active.id !== over.id) {
+            const oldIndex = active.data.current!.sortable.index;
+            const newIndex = over.data.current?.sortable.index || 0;
+            const newCleanings = arrayMove([...cleanings], oldIndex, newIndex);
+            dispatch(cleaningAction.setCleanings(newCleanings))
+        }
+    };
 
     return (
         <div className='w-full overflow-auto'>
@@ -106,21 +141,29 @@ const TodoListPage = () => {
                 </div>
             </div>
 
-            <ul className="flex flex-col gap-2 w-full pt-4 px-2">
-                {orderByPriority.length > 0 &&
-                    orderByPriority.map((cleaning, i) => {
-                        const animationClass = `${getAnimateClassByIndex(i, orderByPriority.length)}`;
-                        return (
-                            <TodoContainer
-                                animate={animationClass}
-                                key={cleaning.id}
-                                onCheck={checkTodoHandler}
-                                todo={cleaning}
-                                onDelete={openDeleteModal}
-                            />
-                        );
-                    })}
-            </ul>
+            <DndContext sensors={sensors}
+                        modifiers={[restrictToFirstScrollableAncestor]}
+                        onDragEnd={handleDragEnd}
+            >
+                <SortableContext items={cleanings} id={dragId}>
+                    <ul ref={setNodeRef} className="flex flex-col gap-2 w-full pt-4 px-2">
+                        {cleanings.map((cleaning, i) => {
+                            const animationClass = `${getAnimateClassByIndex(i,cleanings.length)}`;
+                            return (
+                                <TodoContainer
+                                    animate={animationClass}
+                                    key={cleaning.id}
+                                    id={cleaning.id}
+                                    onCheck={checkTodoHandler}
+                                    todo={cleaning}
+                                    onDelete={openDeleteModal}
+                                />
+                            );
+                        })}
+                    </ul>
+
+                </SortableContext>
+            </DndContext>
 
             <ConfirmModal
                 isShow={isDeleteModal}

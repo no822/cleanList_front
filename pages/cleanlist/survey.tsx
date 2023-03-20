@@ -163,7 +163,9 @@ const SurveyPage = () => {
         const cleaningTodoList: Array<cleaning> = cleaningsData
             .filter(c => uniqueIds.includes(c.id) || c.isDefault);
 
-        dispatch(cleaningAction.setCleanings(cleaningTodoList));
+        const orderByPriority = cleaningTodoList
+            .sort((a, b) => a.priority - b.priority);
+        dispatch(cleaningAction.setCleanings(orderByPriority));
         dispatch(cleaningAction.setArea(area));
 
         router.push('/cleanlist/todo');
