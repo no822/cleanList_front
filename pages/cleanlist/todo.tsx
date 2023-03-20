@@ -70,7 +70,6 @@ const TodoListPage = () => {
 
 
     const openDeleteModal = (id: string) => {
-        console.log('open')
         setDeleteModal(true);
         setDeleteTargetId(id);
     }
@@ -106,7 +105,6 @@ const TodoListPage = () => {
         if (!over) {
             return;
         }
-        console.log('drag')
         if (active.id !== over.id) {
             const oldIndex = active.data.current!.sortable.index;
             const newIndex = over.data.current?.sortable.index || 0;
@@ -145,7 +143,7 @@ const TodoListPage = () => {
                         onDragEnd={handleDragEnd}
             >
                 <SortableContext items={cleanings} id={dragId}>
-                    <ul ref={setNodeRef} className=" overflow-auto flex flex-col gap-4 w-full pt-4 px-2">
+                    <ul ref={setNodeRef} className="z-50 flex flex-col gap-8 w-full pt-4 px-2">
                         {cleanings.map((cleaning, i) => {
                             const animationClass = `${getAnimateClassByIndex(i,cleanings.length)}`;
                             return (
