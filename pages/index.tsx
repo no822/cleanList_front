@@ -68,9 +68,8 @@ const Home: NextPage = () => {
         <>
             <form onSubmit={formSubmitHandler}
                   className='w-full flex flex-col justify-center items-center gap-4'>
-                <h1 className='prose text-4xl font-bold'>로그인</h1>
-                <TextInput onChange={emailChangeHandler} labelTxt='이메일' inputType='email'/>
-                <TextInput onChange={passwordChangeHandler } labelTxt='패스워드' inputType='password'/>
+                <TextInput onChange={emailChangeHandler} placeHolder='이메일을 입력해주세요.' labelTxt='이메일' inputType='email'/>
+                <TextInput onChange={passwordChangeHandler } placeHolder='패스워드를 입력해주세요.' labelTxt='패스워드' inputType='password'/>
                 <div className="actions">
                     <input type='submit' className='btn btn-wide mt-4' />
                 </div>
