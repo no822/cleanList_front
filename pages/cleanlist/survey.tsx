@@ -1,6 +1,6 @@
 import {useRouter} from "next/router";
 import React, {useEffect, useState, useRef} from 'react';
-import {useAppSelector, useAppDispatch} from "../../store/hooks";
+import {useAppDispatch} from "../../store/hooks";
 import {cleaningAction} from "../../store/cleaningSlice";
 
 import preQuestionsData from "../../data/questions/preQuestions";
@@ -165,6 +165,7 @@ const SurveyPage = () => {
 
         const orderByPriority = cleaningTodoList
             .sort((a, b) => a.priority - b.priority);
+
         dispatch(cleaningAction.setCleanings(orderByPriority));
         dispatch(cleaningAction.setArea(area));
 

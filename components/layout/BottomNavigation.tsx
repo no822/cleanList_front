@@ -30,9 +30,6 @@ const BottomNavigation = () => {
         }
     };
 
-    // MdOutlineCleaningServices
-    // MdOutlineMap
-    // MdPersonAddAlt1
     return (
         <div className="btm-nav drop-shadow-md my-0 mx-auto max-w-md">
             <button onClick={() => btnClickHandler(0)} className={`${activeMenu.includes("/cleanlist") ? "active" : ""}`}>

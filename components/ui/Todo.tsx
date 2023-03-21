@@ -4,6 +4,7 @@ import CloseButton from "./CloseButton";
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import {RxDragHandleDots2} from "react-icons/rx";
+import {Properties} from "csstype";
 
 type propsType = {
     id: string;
@@ -21,10 +22,10 @@ const TodoContainer = ({id, todo, animate, onCheck, onDelete}: propsType) => {
         setNodeRef,
         transform,
         transition
-    } = useSortable(
-        { id: id }
-    );
-    const itemStyle: any = {
+    } = useSortable({ id: id });
+
+
+    const itemStyle: Properties<string | number> = {
         transform: CSS.Transform.toString(transform),
         transition,
         boxSizing: "border-box",
@@ -44,11 +45,9 @@ const TodoContainer = ({id, todo, animate, onCheck, onDelete}: propsType) => {
 
     return (
         <div className={`${animate} todo-container relative alert bg-sky-400 drop-shadow-lg`}
-              ref={setNodeRef} {...attributes}  style={itemStyle}
-        >
+              ref={setNodeRef} {...attributes} style={itemStyle}>
             <div className={` h-full text-center cursor-grab
-                            flex justify-center items-center w-full`}
-            >
+                            flex justify-center items-center w-full`}>
                 <input
                     type="checkbox"
                     onChange={toggleCheck}

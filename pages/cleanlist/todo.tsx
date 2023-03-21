@@ -10,13 +10,12 @@ import {
     DragEndEvent,
     KeyboardSensor,
     PointerSensor,
-    TouchSensor,
     useDroppable,
     useSensor,
     useSensors
 } from '@dnd-kit/core';
 import {arrayMove, SortableContext, sortableKeyboardCoordinates} from "@dnd-kit/sortable";
-import {restrictToFirstScrollableAncestor, restrictToVerticalAxis} from "@dnd-kit/modifiers";
+import {restrictToVerticalAxis} from "@dnd-kit/modifiers";
 
 
 export const mapToName = {
@@ -117,8 +116,7 @@ const TodoListPage = () => {
         <div className='w-full overflow-auto'>
             <div className={`mx-0 sticky top-0 z-50 
                             bg-slate-100 w-full pb-2  
-                            flex justify-between items-center`}
-            >
+                            flex justify-between items-center`}>
                 <div className='text-sm break-keep flex flex-col pl-2'>
                     <h3 className='text-gray-500'>영역: {area !== "" && mappingAreaName(area)}</h3>
                     <div className='italic leading-loose'>
@@ -140,8 +138,7 @@ const TodoListPage = () => {
 
             <DndContext sensors={sensors}
                         modifiers={[restrictToVerticalAxis]}
-                        onDragEnd={handleDragEnd}
-            >
+                        onDragEnd={handleDragEnd}>
                 <SortableContext items={cleanings} id={dragId}>
                     <ul ref={setNodeRef} className="z-50 flex flex-col gap-4 w-full pt-4 px-2">
                         {cleanings.map((cleaning, i) => {
@@ -158,7 +155,6 @@ const TodoListPage = () => {
                             );
                         })}
                     </ul>
-
                 </SortableContext>
             </DndContext>
 
