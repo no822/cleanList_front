@@ -36,17 +36,19 @@ const BottomNavigation = () => {
     };
 
     return (
-        <div className={`btm-nav drop-shadow-md my-0 mx-auto max-w-md`}>
+        <div className={`${!isAuth && 'text-gray-400 cursor-none'} btm-nav drop-shadow-md my-0 mx-auto max-w-md`}>
             <button onClick={() => btnClickHandler(0)} className={`${activeMenu.includes("/cleanlist") ? "active" : ""}`}>
                 <MdOutlineCleaningServices size='1.4em' />
                 <span className={`btm-nav-label 
                  ${activeMenu.includes("/cleanlist") ? 'font-bold' : ''}`}>청소</span>
             </button>
+
             <button onClick={() => btnClickHandler(1)} className={`${activeMenu.includes("/map") ? "active" : ""}`}>
                 <MdOutlineMap size='1.4em' />
                 <span className={`btm-nav-label
                   ${activeMenu.includes("/map") ? 'font-bold' : ''}`}>도면</span>
             </button>
+
             <button onClick={() => btnClickHandler(2)} className={`${activeMenu.includes("/myPage") ? "active" : ""}`}>
                 <MdPersonAddAlt1 size='1.4em' />
                 <span className={`btm-nav-label 

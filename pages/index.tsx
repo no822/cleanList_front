@@ -133,9 +133,9 @@ const Home: NextPage = () => {
         <>
             {isLoginForm &&
                 <form onSubmit={loginSubmitHandler}
-                      className='w-full flex flex-col justify-center items-center gap-6'>
-                  <TextInput onChange={emailChangeHandler} placeHolder='이메일을 입력해주세요.' labelTxt='이메일' inputType='email'/>
-                  <TextInput onChange={passwordChangeHandler } placeHolder='영문자, 숫자가 포함된 6~17 글자 입력' labelTxt='패스워드' inputType='password'/>
+                      className='w-full flex flex-col justify-center items-center gap-4'>
+                  <TextInput onChange={emailChangeHandler} placeHolder='' labelTxt='이메일' inputType='email'/>
+                  <TextInput onChange={passwordChangeHandler } placeHolder='' labelTxt='패스워드' inputType='password'/>
                   <div className="actions pt-10">
                       {isLoading && <Button className='btn-wide'><Loading /></Button>}
                       {!isLoading && <Button className='btn-wide'><input type='submit' value='로그인' /></Button>}
@@ -147,10 +147,10 @@ const Home: NextPage = () => {
 
             {!isLoginForm &&
                 <form onSubmit={signUpSubmitHandler}
-                    className='w-full flex flex-col justify-center items-center gap-6'>
-                  <TextInput onChange={emailChangeHandler} placeHolder='이메일을 입력해주세요.' labelTxt='이메일' inputType='email'/>
-                  <TextInput onChange={passwordChangeHandler} placeHolder='영문자, 숫자가 포함된 6~17 글자의 숫자를 입력해주세요' labelTxt='패스워드' inputType='password'/>
-                  <TextInput onChange={passwordConfirmChangeHandler} placeHolder='패스워드를 입력해주세요.' labelTxt='패스워드 확인' inputType='password'/>
+                    className='w-full flex flex-col justify-center items-center gap-4'>
+                  <TextInput onChange={emailChangeHandler} placeHolder='' labelTxt='이메일' inputType='email'/>
+                  <TextInput onChange={passwordChangeHandler} placeHolder='' labelTxt='패스워드' inputType='password'/>
+                  <TextInput onChange={passwordConfirmChangeHandler} placeHolder='' labelTxt='패스워드 확인' inputType='password'/>
                   <div className="actions pt-10">
                       {isLoading && <Button className='btn-wide'><Loading /></Button>}
                       {!isLoading && <Button className='btn-wide'><input type='submit' value='회원가입' /></Button>}

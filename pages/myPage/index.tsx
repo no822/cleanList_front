@@ -6,6 +6,7 @@ import {useRouter} from "next/router";
 import {signOut} from "@firebase/auth";
 import auth from "../../network/auth";
 import {MdLogout, MdLibraryBooks} from "react-icons/md";
+import {cleaningAction} from "../../store/cleaningSlice";
 
 const Index = () => {
     const dispatch = useAppDispatch();
@@ -14,6 +15,7 @@ const Index = () => {
     const logoutHandler = () => {
         signOut(auth).then(_ => {
             dispatch(authAction.logout());
+            dispatch(cleaningAction.setCleanings([]));
             deleteToken();
             router.replace('/');
         });
