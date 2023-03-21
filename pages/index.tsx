@@ -10,20 +10,20 @@ import {authAction} from "../store/authSlice";
 import {signInWithEmailAndPassword} from "@firebase/auth";
 import {useRouter} from "next/router";
 import {validateEmail, validatePassword} from "../utils/inputValidate";
+import Loading from "../components/ui/Loading";
+import Button from "../components/ui/Button";
 
 
 const Home: NextPage = () => {
     const router = useRouter()
     const dispatch = useAppDispatch();
     const [isLoginForm, setIsLoginForm] = useState<boolean>(true);
+    const [isLoading, setIsLoading] = useState<boolean>(false);
     const [email, setEmail] = useState<string>('');
     const [password, setPassword] = useState<string>('');
     const [passwordConfirm, setPasswordConfirm] = useState<string>('');
     const [isModal, setIsModal] = useState<boolean>(false);
     const [modalTxt, setModalTxt] = useState<string>('');
-    const [emailValidateMsg, setEmailValidateMsg] = useState<string>('');
-    const [passwordValidateMsg, setPasswordValidateMsg] = useState<string>('')
-
 
     useEffect(() => {
         const token = getToken();
@@ -50,21 +50,23 @@ const Home: NextPage = () => {
         setPasswordConfirm(target.value);
     };
 
-    const validate = () => {
-        if (!validateEmail(email)) {
-            setEmailValidateMsg('올바른 형식의 이메일을 입력해주세요');
-            return false;
-        } else if (!validatePassword(password))  {
-            setPasswordValidateMsg('패스워드는 영문자, 숫자가 포함된 8 이상의 글자입니다');
-            return false;
+
+    const setErrorMsg = (code: string) => {
+        if (code === AuthErrorCodes.INVALID_PASSWORD) {
+            setModalTxt('영문자, 숫자가 포함된 8글자 이상의 글자를 입력해주세요.');
+        }else if (code === AuthErrorCodes.USER_DELETED) {
+            setModalTxt('유저를 찾을 수 없습니다.');
+        } else {
+            setModalTxt('올바른 이메일 또는 패스워드를 입력해주십시오.');
         }
-    }
+
+    };
+
 
     const loginSubmitHandler = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
-        if (!validate()) return;
-
+        setIsLoading(true);
         signInWithEmailAndPassword(auth, email, password)
             .then(({user}) => {
                 user.getIdToken().then(token => {
@@ -75,25 +77,21 @@ const Home: NextPage = () => {
             })
             .catch(error => {
                 const errorCode = error.code;
-                if (errorCode === AuthErrorCodes.INVALID_PASSWORD) {
-                    setModalTxt('잘못된 비밀번호입니다.');
-                }else if (errorCode === AuthErrorCodes.USER_DELETED) {
-                    setModalTxt('유저를 찾을 수 없습니다.');
-                } else {
-                    setModalTxt('올바른 이메일 또는 패스워드를 입력해주십시오.');
-                }
+                setErrorMsg(errorCode);
                 setIsModal(true);
             })
+            .finally(() => {
+                setEmail('');
+                setPassword('');
+                setIsLoading(false);
+            })
 
-        setEmail('');
-        setPassword('');
     };
 
 
     const signUpSubmitHandler = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
-        if (!validate()) return;
 
         if (password !== passwordConfirm) {
             setModalTxt('패스워드와 패스워드 확인을 동일하게 입력해주세요');
@@ -101,17 +99,25 @@ const Home: NextPage = () => {
             return;
         }
 
+        setIsLoading(true);
         createUserWithEmailAndPassword(auth, email, password)
             .then(() => {
                 setModalTxt('회원가입에 성공하였습니다.');
                 setIsLoginForm(true);
             })
-            .catch(console.log);
+            .catch(error => {
+                const errorCode = error.code;
+                setErrorMsg(errorCode);
+                setIsModal(true);
 
-        setIsModal(true);
-        setEmail('');
-        setPassword('');
-        setPasswordConfirm('');
+            })
+            .finally(() => {
+                setIsModal(true);
+                setEmail('');
+                setPassword('');
+                setPasswordConfirm('');
+                setIsLoading(false);
+            })
     };
 
 
@@ -120,8 +126,6 @@ const Home: NextPage = () => {
         setEmail('');
         setPassword('');
         setPasswordConfirm('');
-        setEmailValidateMsg('');
-        setPasswordValidateMsg('');
     };
 
 
@@ -130,10 +134,11 @@ const Home: NextPage = () => {
             {isLoginForm &&
                 <form onSubmit={loginSubmitHandler}
                       className='w-full flex flex-col justify-center items-center gap-6'>
-                  <TextInput validateMsg={emailValidateMsg} onChange={emailChangeHandler} placeHolder='이메일을 입력해주세요.' labelTxt='이메일' inputType='email'/>
-                  <TextInput validateMsg={passwordValidateMsg} onChange={passwordChangeHandler } placeHolder='영문자, 숫자가 포함된 6~17 글자 입력' labelTxt='패스워드' inputType='password'/>
-                  <div className="actions">
-                    <input type='submit' value='로그인' className='btn btn-wide mt-10' />
+                  <TextInput onChange={emailChangeHandler} placeHolder='이메일을 입력해주세요.' labelTxt='이메일' inputType='email'/>
+                  <TextInput onChange={passwordChangeHandler } placeHolder='영문자, 숫자가 포함된 6~17 글자 입력' labelTxt='패스워드' inputType='password'/>
+                  <div className="actions pt-10">
+                      {isLoading && <Button className='btn-wide'><Loading /></Button>}
+                      {!isLoading && <Button className='btn-wide'><input type='submit' value='로그인' /></Button>}
                   </div>
                   <div onClick={() => setIsLoginForm(false)}
                        className='text-gray-500 text-sm cursor-pointer'>회원가입</div>
@@ -143,11 +148,12 @@ const Home: NextPage = () => {
             {!isLoginForm &&
                 <form onSubmit={signUpSubmitHandler}
                     className='w-full flex flex-col justify-center items-center gap-6'>
-                  <TextInput validateMsg={emailValidateMsg} onChange={emailChangeHandler} placeHolder='이메일을 입력해주세요.' labelTxt='이메일' inputType='email'/>
-                  <TextInput validateMsg={passwordValidateMsg} onChange={passwordChangeHandler} placeHolder='영문자, 숫자가 포함된 6~17 글자의 숫자를 입력해주세요' labelTxt='패스워드' inputType='password'/>
+                  <TextInput onChange={emailChangeHandler} placeHolder='이메일을 입력해주세요.' labelTxt='이메일' inputType='email'/>
+                  <TextInput onChange={passwordChangeHandler} placeHolder='영문자, 숫자가 포함된 6~17 글자의 숫자를 입력해주세요' labelTxt='패스워드' inputType='password'/>
                   <TextInput onChange={passwordConfirmChangeHandler} placeHolder='패스워드를 입력해주세요.' labelTxt='패스워드 확인' inputType='password'/>
-                  <div className="actions">
-                    <input type='submit' value='회원가입' className='btn btn-wide mt-10' />
+                  <div className="actions pt-10">
+                      {isLoading && <Button className='btn-wide'><Loading /></Button>}
+                      {!isLoading && <Button className='btn-wide'><input type='submit' value='회원가입' /></Button>}
                   </div>
                   <div onClick={() => toggleForm(true)}
                        className='text-gray-500 text-sm cursor-pointer'>로그인</div>
