@@ -21,10 +21,10 @@ const Home: NextPage = () => {
 
 
     useEffect(() => {
-        console.log(getToken())
-       if (getToken() && getToken.length > 0)  {
-           router.push('/cleanlist');
-       }
+        const token = getToken();
+        if (token && token.length > 0)  {
+            router.push('/cleanlist');
+        }
     }, []);
 
 
