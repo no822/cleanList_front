@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {useRouter} from "next/router";
 import {useAppSelector} from "../../store/hooks";
 import Button from "../../components/ui/Button";
@@ -18,6 +18,7 @@ const Index = () => {
         }
         router.push('/cleanlist/survey');
     };
+
 
     const goToCleaning = () => router.push('/cleanlist/todo');
     const closeModal = () => setIsModalOpen(false);

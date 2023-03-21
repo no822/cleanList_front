@@ -25,5 +25,6 @@ module.exports = {
       require("daisyui"),
       require("tailwindcss-animation-delay"),
       require("tailwindcss-animate"),
+      require('@tailwindcss/typography'),
   ],
 }
