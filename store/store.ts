@@ -14,6 +14,8 @@ import {
 import storage from 'redux-persist/lib/storage';
 import cleaningSlice from "./cleaningSlice";
 import authSlice from "./authSlice";
+import thunk from "redux-thunk";
+import logger from "redux-logger";
 
 
 const persistConfig = {
@@ -32,10 +34,7 @@ const persistedReducer = persistReducer(persistConfig, reducers);
 
 const store = configureStore({
     reducer: persistedReducer,
-    middleware: getDefaultMiddleware({
-        serializableCheck: false,
-    }),
-
+    middleware: [thunk, logger]
 });
 
 
