@@ -32,9 +32,10 @@ const reducers = combineReducers({
 const persistedReducer = persistReducer(persistConfig, reducers);
 
 
+const middlewares = (process.env.NODE_ENV === 'production') ? [thunk] : [thunk, logger];
 const store = configureStore({
     reducer: persistedReducer,
-    middleware: [thunk, logger]
+    middleware: [...middlewares]
 });
 
 
