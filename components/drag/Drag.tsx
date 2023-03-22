@@ -1,5 +1,6 @@
 'use client'
 import React, {useState, useRef, useEffect} from 'react';
+import {MdPhotoSizeSelectLarge} from 'react-icons/md';
 import registDragEvent from "../../utils/registDragEvent";
 
 
@@ -18,10 +19,8 @@ const Drag = () => {
     const boxRef = useRef<HTMLDivElement>(null);
 
     const BOUNDARY_MARGIN = 0
-    const DEFAULT_W = 70;
-    const DEFAULT_H = 70;
-    const MIN_W = 0;
-    const MIN_H = 0;
+    const MIN_W = 70;
+    const MIN_H = 70;
 
     const [{ x, y, w, h }, setConfig] = useState({
         x: 0,
@@ -31,8 +30,11 @@ const Drag = () => {
     });
 
 
+
     useEffect(() => {
         const boundary = boundaryRef.current?.getBoundingClientRect();
+        const DEFAULT_W = 70;
+        const DEFAULT_H = 70;
 
         if (boundary) {
             setConfig({
@@ -52,19 +54,15 @@ const Drag = () => {
         const boundary = boundaryRef.current.getBoundingClientRect();
 
         setConfig({
-            x: inrange(x + deltaX, BOUNDARY_MARGIN, boundary.width - DEFAULT_W - BOUNDARY_MARGIN),
-            y: inrange(
-                y + deltaY,
-                BOUNDARY_MARGIN,
-                boundary.height - DEFAULT_H - BOUNDARY_MARGIN,
-            ),
-            w: w,
-            h: h,
+            x: inrange(x + deltaX, BOUNDARY_MARGIN, boundary.width - w - BOUNDARY_MARGIN),
+            y: inrange(y + deltaY, BOUNDARY_MARGIN, boundary.height - h - BOUNDARY_MARGIN),
+            w,
+            h,
         });
     };
 
 
-    const resizeHandler = (deltaX: number, deltaY: number) => {
+    const resizeHandler2 = (deltaX: number, deltaY: number) => {
         if (!boundaryRef.current) return;
         const boundary = boundaryRef.current.getBoundingClientRect();
         setConfig({
@@ -75,7 +73,7 @@ const Drag = () => {
         });
     };
 
-    const resizeHandler2 = (deltaX: number, deltaY: number) => {
+    const resizeHandler = (deltaX: number, deltaY: number) => {
         if (!boundaryRef.current) return;
         const boundary = boundaryRef.current.getBoundingClientRect();
         setConfig({
@@ -93,8 +91,9 @@ const Drag = () => {
 
     return (
         <div className="h-full relative">
-            <div className="mb-2 absolute -top-10">
+            <div className="fixed top-0 left-0 mb-2 -top-10">
                 <span className="ml-4">x:{x} y:{y}</span>
+                <span className="ml-4">w:{w} h:{h}</span>
             </div>
 
             <div ref={boundaryRef} className="border border-red-500 h-full grid items-start justify-start">
@@ -108,26 +107,20 @@ const Drag = () => {
                         stopPropagation: true
                     })}
                 >
+                    {/* Box */}
                     <div ref={boxRef}
                          className={`absolute h-full w-full cursor-move bg-white shadow-xl
                           transition-[shadow,transform] active:scale-95 active:shadow-lg`}
                     />
 
-                    <div className="absolute bottom-0 left-15 right-0 w-4 h-4 cursor-s-resize bg-gray-500"
-                         {...registDragEvent({
-                         onDragChange: resizeHandler,
-                         onDragEnd: dragEndChangeHandler,
-                         stopPropagation: true
-                        })}
-                    />
 
-                    <div className="absolute top-0 left-0 right-12 w-4 h-4 cursor-s-resize bg-red-500"
+                    <div className="absolute top-0 left-0 right-12 w-4 h-4 cursor-nwse-resize"
                         {...registDragEvent({
-                            onDragChange: resizeHandler2,
+                            onDragChange: resizeHandler,
                             onDragEnd: dragEndChangeHandler,
                             stopPropagation: true,
                         })}
-                    />
+                    >{<MdPhotoSizeSelectLarge />}</div>
 
                 </div>
             </div>
