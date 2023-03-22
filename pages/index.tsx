@@ -69,6 +69,7 @@ const Home: NextPage = () => {
         setIsLoading(true);
         signInWithEmailAndPassword(auth, email, password)
             .then(({user}) => {
+                console.log('user', user);
                 user.getIdToken().then(token => {
                     saveToken(token);
                     dispatch(authAction.setToken({email, token}));
@@ -91,7 +92,6 @@ const Home: NextPage = () => {
 
     const signUpSubmitHandler = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-
 
         if (password !== passwordConfirm) {
             setModalTxt('패스워드와 패스워드 확인을 동일하게 입력해주세요');
