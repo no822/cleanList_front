@@ -1,7 +1,8 @@
 /* 출처: https://velog.io/@bepyan/Drag-Touch-%EB%BD%80%EA%B0%9C%EA%B8%B0 */
 
 const isTouchScreen =
-    typeof window !== 'undefined' && window.matchMedia('(hover: none) and (pointer: coarse)').matches;
+    typeof window !== 'undefined'
+        && window.matchMedia('(hover: none) and (pointer: coarse)').matches;
 
 
 function registDragEvent({
@@ -44,7 +45,6 @@ function registDragEvent({
     return {
         onMouseDown: (clickEvent: React.MouseEvent<Element, MouseEvent>) => {
             if (stopPropagation) clickEvent.stopPropagation();
-            console.log('mouse')
 
             const mouseMoveHandler = (moveEvent: MouseEvent) => {
                 const deltaX = moveEvent.pageX - clickEvent.pageX;
