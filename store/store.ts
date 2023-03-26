@@ -1,16 +1,5 @@
 import {configureStore, ThunkAction, Action, combineReducers, getDefaultMiddleware} from '@reduxjs/toolkit';
-import cleaningReducer from './cleaningSlice';
-import authReducer from './authSlice';
-import {
-    persistStore,
-    persistReducer,
-    FLUSH,
-    REHYDRATE,
-    PAUSE,
-    PERSIST,
-    PURGE,
-    REGISTER,
-} from 'redux-persist';
+import {persistReducer} from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 import cleaningSlice from "./cleaningSlice";
 import authSlice from "./authSlice";

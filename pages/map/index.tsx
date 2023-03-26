@@ -23,9 +23,9 @@ const Index = () => {
                     <Button onClick={editAreaHandler} className='h-full max-w-screen-xl'>수정</Button>
                 </div>
             </div>
-            <div className='mb-8 pr-8 pl-8 mt-2 max-h-28'>
+            <div className='mb-8 pr-8 pl-8 pb-2 mt-2 max-h-28'>
                 <div className="divider select-none">청소 기록</div>
-                <ul className='overflow-auto h-24 w-full flex flex-col items-center'>
+                <ul className='overflow-auto h-24 pb-2 w-full flex flex-col items-center'>
                     <ul>7일 전에 <span className='text-red-500'>주방</span>을 청소하였습니다.</ul>
                     <ul>10일 전에 <span className='text-red-500'>욕실</span>을 청소하였습니다.</ul>
                     <ul>10일 전에 <span className='text-red-500'>욕실</span>을 청소하였습니다.</ul>

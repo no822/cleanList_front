@@ -30,7 +30,6 @@ const Drag = () => {
     });
 
 
-
     useEffect(() => {
         const boundary = boundaryRef.current?.getBoundingClientRect();
         const DEFAULT_W = 70;
@@ -62,16 +61,6 @@ const Drag = () => {
     };
 
 
-    const resizeHandler2 = (deltaX: number, deltaY: number) => {
-        if (!boundaryRef.current) return;
-        const boundary = boundaryRef.current.getBoundingClientRect();
-        setConfig({
-            x,
-            y,
-            w: inrange(w + deltaX, MIN_W, boundary.width - x - BOUNDARY_MARGIN),
-            h: inrange(h + deltaY, MIN_H, boundary.height - y - BOUNDARY_MARGIN),
-        });
-    };
 
     const resizeHandler = (deltaX: number, deltaY: number) => {
         if (!boundaryRef.current) return;
@@ -84,9 +73,12 @@ const Drag = () => {
         });
     }
 
+
     const dragEndChangeHandler = (deltaX: number, deltaY: number) => {
        console.log(deltaX, deltaY) ;
+
     };
+
 
 
     return (
