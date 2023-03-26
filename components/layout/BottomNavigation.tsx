@@ -35,8 +35,10 @@ const BottomNavigation = () => {
         }
     };
 
+    if (!isAuth) return <div className='btm-nav bg-slate-100'></div>;
+    
     return (
-        <div className={`${!isAuth && 'text-gray-400 cursor-none'} btm-nav drop-shadow-md my-0 mx-auto max-w-md`}>
+        <div className={`btm-nav drop-shadow-md my-0 mx-auto max-w-md`}>
             <button onClick={() => btnClickHandler(0)} className={`${activeMenu.includes("/cleanlist") ? "active" : ""}`}>
                 <MdOutlineCleaningServices size='1.4em' />
                 <span className={`btm-nav-label 
