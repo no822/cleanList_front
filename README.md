@@ -5,12 +5,9 @@
 - 청소에 의욕이 없는 사람들도 청소를 잘할 수 있는 청소 Todo 리스트 생성기입니다.
 - 관련된 질문에 대답하면 관련된 청소 Todo 리스트를 생성해줍니다.
 - 청소를 실시한 구역을 설정하여 청소기록을 확인할 수 있습니다.
-<div style="display: flex; overflow-x: scroll;">
-<img style="object-fit: cover" alt="스크린샷 1" src="https://user-images.githubusercontent.com/68183628/227823186-7e1b363a-76c2-4a53-8106-37c8d6353136.png">
-<img style="object-fit: cover" alt="스크린샷 2" src="https://user-images.githubusercontent.com/68183628/227823200-366a0afd-9686-4f90-b6f4-f8a0c90205f2.png">
-<img style="object-fit: cover" alt="스크린샷 3" src="https://user-images.githubusercontent.com/68183628/227823207-d9fbe95e-1af7-4bc5-b83e-afab33d1e75f.png">
-<img style="object-fit: cover"  alt="스크린샷 4" src="https://user-images.githubusercontent.com/68183628/227823299-f0d0b912-7994-4c9a-8af3-ad8e33e78736.png">
-</div>
+ 
+
+  ![](https://velog.velcdn.com/images/ys_sung/post/f5aa67ad-de17-4d04-a20c-c4ac3c65bda3/image.jpeg)
 
 ### 프로젝트 시작동기
 
