@@ -56,6 +56,8 @@ const Home: NextPage = () => {
             setModalTxt('영문자, 숫자가 포함된 8글자 이상의 글자를 입력해주세요.');
         }else if (code === AuthErrorCodes.USER_DELETED) {
             setModalTxt('유저를 찾을 수 없습니다.');
+        } else if (code === AuthErrorCodes.EMAIL_EXISTS) {
+            setModalTxt('이미 존재하는 이메일입니다.');
         } else {
             setModalTxt('올바른 이메일 또는 패스워드를 입력해주십시오.');
         }
@@ -77,7 +79,6 @@ const Home: NextPage = () => {
             })
             .catch(error => {
                 const errorCode = error.code;
-                console.log(errorCode)
                 setErrorMsg(errorCode);
                 setIsModal(true);
             })
