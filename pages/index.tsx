@@ -69,7 +69,6 @@ const Home: NextPage = () => {
         setIsLoading(true);
         signInWithEmailAndPassword(auth, email, password)
             .then(({user}) => {
-                console.log('user', user);
                 user.getIdToken().then(token => {
                     saveToken(token);
                     dispatch(authAction.setToken({email, token}));
@@ -78,6 +77,7 @@ const Home: NextPage = () => {
             })
             .catch(error => {
                 const errorCode = error.code;
+                console.log(errorCode)
                 setErrorMsg(errorCode);
                 setIsModal(true);
             })
